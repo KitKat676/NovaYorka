@@ -1,3 +1,4 @@
+//start of program
 use std::{
     collections::HashMap,
     env::current_dir,
