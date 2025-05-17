@@ -1,4 +1,3 @@
-//start of program
 use std::{
     collections::HashMap,
     env::current_dir,
@@ -39,9 +38,9 @@ pub enum FileLocation {
 }
 
 pub fn create_public_params<G1, G2>(r1cs: R1CS<F<G1>>) -> PublicParams<G1, G2, C1<G1>, C2<G2>>
-where
-    G1: Group<Base = <G2 as Group>::Scalar>,
-    G2: Group<Base = <G1 as Group>::Scalar>,
+    where
+        G1: Group<Base = <G2 as Group>::Scalar>,
+        G2: Group<Base = <G1 as Group>::Scalar>,
 {
     let circuit_primary = CircomCircuit {
         r1cs,
@@ -67,9 +66,9 @@ fn compute_witness<G1, G2>(
     witness_generator_file: FileLocation,
     witness_generator_output: &Path,
 ) -> Vec<<G1 as Group>::Scalar>
-where
-    G1: Group<Base = <G2 as Group>::Scalar>,
-    G2: Group<Base = <G1 as Group>::Scalar>,
+    where
+        G1: Group<Base = <G2 as Group>::Scalar>,
+        G2: Group<Base = <G1 as Group>::Scalar>,
 {
     let decimal_stringified_input: Vec<String> = current_public_input
         .iter()
@@ -112,9 +111,9 @@ async fn compute_witness<G1, G2>(
     private_input: HashMap<String, Value>,
     witness_generator_file: FileLocation,
 ) -> Vec<<G1 as Group>::Scalar>
-where
-    G1: Group<Base = <G2 as Group>::Scalar>,
-    G2: Group<Base = <G1 as Group>::Scalar>,
+    where
+        G1: Group<Base = <G2 as Group>::Scalar>,
+        G2: Group<Base = <G1 as Group>::Scalar>,
 {
     let decimal_stringified_input: Vec<String> = current_public_input
         .iter()
@@ -137,7 +136,7 @@ where
             &witness_generator_file,
             &input_json,
         )
-        .await
+            .await
     } else {
         let root = current_dir().unwrap(); // compute path only when generating witness from a binary
         let witness_generator_output = root.join("circom_witness.wtns");
@@ -160,10 +159,10 @@ pub fn create_recursive_circuit<G1, G2>(
     private_inputs: Vec<HashMap<String, Value>>,
     start_public_input: Vec<F<G1>>,
     pp: &PublicParams<G1, G2, C1<G1>, C2<G2>>,
-) -> Result<RecursiveSNARK<G1, G2, C1<G1>, C2<G2>>, std::io::Error>
-where
-    G1: Group<Base = <G2 as Group>::Scalar>,
-    G2: Group<Base = <G1 as Group>::Scalar>,
+) -> Result<(Vec<<G1 as Group>::Scalar>,RecursiveSNARK<G1, G2, C1<G1>, C2<G2>>), std::io::Error>
+    where
+        G1: Group<Base = <G2 as Group>::Scalar>,
+        G2: Group<Base = <G1 as Group>::Scalar>,
 {
     let root = current_dir().unwrap();
     let witness_generator_output = root.join("circom_witness.wtns");
@@ -197,7 +196,7 @@ where
         start_public_input.clone(),
         z0_secondary.clone(),
     );
-
+    let mut current_public_output = circuit_0.get_public_outputs();
     for i in 0..iteration_count {
         let witness = compute_witness::<G1, G2>(
             current_public_input.clone(),
@@ -211,7 +210,8 @@ where
             witness: Some(witness),
         };
 
-        let current_public_output = circuit.get_public_outputs();
+        current_public_output = circuit.get_public_outputs();
+        println!("The generated public output after iteration {:?} is {:?}", i, current_public_output);
         current_public_input = current_public_output
             .iter()
             .map(|&x| format!("{:?}", x).strip_prefix("0x").unwrap().to_string())
@@ -227,8 +227,8 @@ where
         assert!(res.is_ok());
     }
     fs::remove_file(witness_generator_output)?;
-
-    Ok(recursive_snark)
+    let fin_res = (current_public_output, recursive_snark);
+    Ok(fin_res)
 }
 
 #[cfg(target_family = "wasm")]
@@ -239,9 +239,9 @@ pub async fn create_recursive_circuit<G1, G2>(
     start_public_input: Vec<F<G1>>,
     pp: &PublicParams<G1, G2, C1<G1>, C2<G2>>,
 ) -> Result<RecursiveSNARK<G1, G2, C1<G1>, C2<G2>>, std::io::Error>
-where
-    G1: Group<Base = <G2 as Group>::Scalar>,
-    G2: Group<Base = <G1 as Group>::Scalar>,
+    where
+        G1: Group<Base = <G2 as Group>::Scalar>,
+        G2: Group<Base = <G1 as Group>::Scalar>,
 {
 
     let iteration_count = private_inputs.len();
@@ -257,7 +257,7 @@ where
         private_inputs[0].clone(),
         witness_generator_file.clone(),
     )
-    .await;
+        .await;
 
     let circuit_0 = CircomCircuit {
         r1cs: r1cs.clone(),
@@ -280,7 +280,7 @@ where
             private_inputs[i].clone(),
             witness_generator_file.clone(),
         )
-        .await;
+            .await;
 
         let circuit = CircomCircuit {
             r1cs: r1cs.clone(),
@@ -316,9 +316,9 @@ pub fn continue_recursive_circuit<G1, G2>(
     start_public_input: Vec<F<G1>>,
     pp: &PublicParams<G1, G2, C1<G1>, C2<G2>>,
 ) -> Result<(), std::io::Error>
-where
-    G1: Group<Base = <G2 as Group>::Scalar>,
-    G2: Group<Base = <G1 as Group>::Scalar>,
+    where
+        G1: Group<Base = <G2 as Group>::Scalar>,
+        G2: Group<Base = <G1 as Group>::Scalar>,
 {
     let root = current_dir().unwrap();
     let witness_generator_output = root.join("circom_witness.wtns");
@@ -378,9 +378,9 @@ pub async fn continue_recursive_circuit<G1, G2>(
     start_public_input: Vec<F<G1>>,
     pp: &PublicParams<G1, G2, C1<G1>, C2<G2>>,
 ) -> Result<(), std::io::Error>
-where
-    G1: Group<Base = <G2 as Group>::Scalar>,
-    G2: Group<Base = <G1 as Group>::Scalar>,
+    where
+        G1: Group<Base = <G2 as Group>::Scalar>,
+        G2: Group<Base = <G1 as Group>::Scalar>,
 {
     let root = current_dir().unwrap();
     let witness_generator_output = root.join("circom_witness.wtns");
@@ -401,7 +401,7 @@ where
             private_inputs[i].clone(),
             witness_generator_file.clone(),
         )
-        .await;
+            .await;
 
         let circuit = CircomCircuit {
             r1cs: r1cs.clone(),
