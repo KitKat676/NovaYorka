@@ -12,7 +12,7 @@ fn main() {
             "src/calcwit.cpp",
             "src/fr.cpp",
             "src/main.cpp",
-            //"src/ffi_wrappers.cpp",
+            "src/ffi_wrappers.cpp",
         ])
         .flag_if_supported("-std=c++11")
         .flag_if_supported("-O3")
