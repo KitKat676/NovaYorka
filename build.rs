@@ -3,6 +3,7 @@ use std::env;
 use std::fs;
 
 fn main() {
+    println!("Starting to compile C++ code");
     let out_dir = env::var("OUT_DIR").unwrap();
 
     // Step 1: Compile the C++ files into a static library
@@ -35,4 +36,5 @@ fn main() {
         .current_dir(&out_dir)
         .status()
         .expect("Failed to create libfr.a");
+    println!("Ending compile C++ code");
 }
