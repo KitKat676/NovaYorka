@@ -290,6 +290,7 @@ void loadJson(Circom_CalcWit *ctx, std::string filename) {
 void writeBinWitness(Circom_CalcWit *ctx, std::string wtnsFileName) {
     FILE *write_ptr;
 
+    printf("Started writing witness\n");
     write_ptr = fopen(wtnsFileName.c_str(),"wb");
 
     fwrite("wtns", 4, 1, write_ptr);
@@ -332,6 +333,7 @@ void writeBinWitness(Circom_CalcWit *ctx, std::string wtnsFileName) {
         Fr_toLongNormal(&v, &v);
         fwrite(v.longVal, Fr_N64*8, 1, write_ptr);
     }
+    printf("Finished writing witness\n");
     fclose(write_ptr);
 }
 
