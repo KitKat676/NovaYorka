@@ -244,7 +244,7 @@ void qualify_input(std::string prefix, json &in, json &in1) {
 
 void loadJson(Circom_CalcWit *ctx, std::string json_str) {
   //std::ifstream inStream(filename);
-  std::isstream inStream(json_str);
+  std::istringstream inStream(json_str);
   json jin;
   inStream >> jin;
   json j;
@@ -343,6 +343,7 @@ int analyzer_main (char* json_str, char* wtns_file) {
   
     // auto t_start = std::chrono::high_resolution_clock::now();
 
+   std::string datfile = "analyzer.dat";
    Circom_Circuit *circuit = loadCircuit(datfile);
 
    Circom_CalcWit *ctx = new Circom_CalcWit(circuit);
@@ -370,7 +371,6 @@ int analyzer_main (char* json_str, char* wtns_file) {
    //auto t_end = std::chrono::high_resolution_clock::now();
    //std::cout << std::chrono::duration<double, std::milli>(t_end-t_mid).count()<<std::endl;
 
-  }  
   return 0;
 }
 }
