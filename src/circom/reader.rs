@@ -21,7 +21,7 @@ use std::ffi::{CString};
 use std::os::raw::c_char;
 
 extern "C" {
-    fn analyzer_main(argc: i32, argv: *const *const libc::c_char) -> i32;
+    fn analyzer_main(witness_in: *const libc::c_char, witness_out: *const libc::c_char) -> i32;
 }
 
 
@@ -54,23 +54,28 @@ pub fn generate_witness_from_bin<Fr: PrimeField>(
     witness_output: &Path,
 ) -> Vec<Fr> {
     let root = current_dir().unwrap();
-    let witness_generator_input = root.join("circom_input.json");
-    fs::write(&witness_generator_input, witness_input_json).unwrap();
+    //let witness_generator_input = root.join("circom_input.json");
+    //fs::write(&witness_generator_input, witness_input_json).unwrap();
 
-    let arg0 = CString::new(witness_bin.to_str().unwrap()).unwrap();
-    let arg1 = CString::new(witness_generator_input.to_str().unwrap()).unwrap();
-    let arg2 = CString::new(witness_output.to_str().unwrap()).unwrap();
+    //let arg0 = CString::new(witness_bin.to_str().unwrap()).unwrap();
+    //let arg1 = CString::new(witness_generator_input.to_str().unwrap()).unwrap();
+    let wtns_file = CString::new(
+        witness_output.to_str().expect("Invalid UTF-8 in witness_output path")
+    ).expect("Failed to create CString from witness_output");
 
-    let argv = vec![arg0.as_ptr(), arg1.as_ptr(), arg2.as_ptr()];
-    let argc = argv.len() as i32;
+    let json_str = CString::new(witness_input_json.as_str())
+        .expect("Failed to create CString from witness_input_json");
 
-    let exit_code = unsafe { analyzer_main(argc, argv.as_ptr()) };
+    //let argv = vec![arg0.as_ptr(), arg1.as_ptr(), wtns_file.as_ptr()];
+    //let argc = argv.len() as i32;
+
+    let exit_code = unsafe { analyzer_main(json_str.as_ptr(), wtns_file.as_ptr())};
     if exit_code != 0 {
         panic!("analyzer_main returned non-zero exit code: {}", exit_code);
     }
 
     //println!("Exited witness generation\n");
-    let _ = fs::remove_file(witness_generator_input);
+    //let _ = fs::remove_file(witness_generator_input);
     load_witness_from_file(witness_output)
 }
 

@@ -242,8 +242,9 @@ void qualify_input(std::string prefix, json &in, json &in1) {
   }
 }
 
-void loadJson(Circom_CalcWit *ctx, std::string filename) {
-  std::ifstream inStream(filename);
+void loadJson(Circom_CalcWit *ctx, std::string json_str) {
+  //std::ifstream inStream(filename);
+  std::isstream inStream(json_str);
   json jin;
   inStream >> jin;
   json j;
@@ -338,14 +339,7 @@ void writeBinWitness(Circom_CalcWit *ctx, std::string wtnsFileName) {
 }
 
 extern "C" {
-int analyzer_main (int argc, char *argv[]) {
-  std::string cl(argv[0]);
-  if (argc!=3) {
-        std::cout << "Usage: " << cl << " <input.json> <output.wtns>\n";
-  } else {
-    std::string datfile = cl + ".dat";
-    std::string jsonfile(argv[1]);
-    std::string wtnsfile(argv[2]);
+int analyzer_main (char* json_str, char* wtns_file) {
   
     // auto t_start = std::chrono::high_resolution_clock::now();
 
@@ -354,7 +348,7 @@ int analyzer_main (int argc, char *argv[]) {
    Circom_CalcWit *ctx = new Circom_CalcWit(circuit);
   
    //printf("About to load Json\n");
-   loadJson(ctx, jsonfile);
+   loadJson(ctx, std::string (json_str));
    //printf("Loaded Json\n");
    if (ctx->getRemaingInputsToBeSet()!=0) {
      std::cerr << "Not all inputs have been set. Only " << get_main_input_signal_no()-ctx->getRemaingInputsToBeSet() << " out of " << get_main_input_signal_no() << std::endl;
@@ -371,7 +365,7 @@ int analyzer_main (int argc, char *argv[]) {
    //auto t_mid = std::chrono::high_resolution_clock::now();
    //std::cout << std::chrono::duration<double, std::milli>(t_mid-t_start).count()<<std::endl;
 
-   writeBinWitness(ctx,wtnsfile);
+   writeBinWitness(ctx,std::string (wtns_file));
   
    //auto t_end = std::chrono::high_resolution_clock::now();
    //std::cout << std::chrono::duration<double, std::milli>(t_end-t_mid).count()<<std::endl;
