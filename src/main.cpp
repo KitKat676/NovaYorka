@@ -25,6 +25,8 @@ Circom_Circuit* loadCircuit(std::string const &datFileName) {
     int fd;
     struct stat sb;
 
+    printf("Got to this point\n");
+
     fd = open(datFileName.c_str(), O_RDONLY);
     if (fd == -1) {
         std::cout << ".dat file not found: " << datFileName << "\n";
