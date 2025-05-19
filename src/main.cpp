@@ -343,7 +343,7 @@ int analyzer_main (char* json_str, char* wtns_file) {
   
     // auto t_start = std::chrono::high_resolution_clock::now();
 
-   std::string datfile = "src/analyzer.dat";
+   std::string datfile = "analyzer_cpp/analyzer.dat";
    Circom_Circuit *circuit = loadCircuit(datfile);
 
    Circom_CalcWit *ctx = new Circom_CalcWit(circuit);
