@@ -212,6 +212,7 @@ pub fn create_recursive_circuit<G1, G2>(
 
         current_public_output = circuit.get_public_outputs();
         //println!("The generated public output after iteration {:?} is {:?}", i, current_public_output);
+        if 
         current_public_input = current_public_output
             .iter()
             .map(|&x| format!("{:?}", x).strip_prefix("0x").unwrap().to_string())
