@@ -16,7 +16,16 @@ use crate::FileLocation;
 use ff::PrimeField;
 use nova_snark::traits::Group;
 
-pub fn generate_witness_from_bin<Fr: PrimeField>(
+use libc;
+use std::ffi::{CString};
+use std::os::raw::c_char;
+
+extern "C" {
+    fn analyzer_main(argc: i32, argv: *const *const libc::c_char) -> i32;
+}
+
+
+/*pub fn generate_witness_from_bin<Fr: PrimeField>(
     witness_bin: &Path,
     witness_input_json: &String,
     witness_output: &Path,
@@ -34,6 +43,32 @@ pub fn generate_witness_from_bin<Fr: PrimeField>(
         print!("stdout: {}", str::from_utf8(&output.stdout).unwrap());
         print!("stderr: {}", str::from_utf8(&output.stderr).unwrap());
     }
+    let _ = fs::remove_file(witness_generator_input);
+    load_witness_from_file(witness_output)
+}
+*/
+
+pub fn generate_witness_from_bin<Fr: PrimeField>(
+    witness_bin: &Path,
+    witness_input_json: &String,
+    witness_output: &Path,
+) -> Vec<Fr> {
+    let root = current_dir().unwrap();
+    let witness_generator_input = root.join("circom_input.json");
+    fs::write(&witness_generator_input, witness_input_json).unwrap();
+
+    let arg0 = CString::new(witness_bin.to_str().unwrap()).unwrap();
+    let arg1 = CString::new(witness_generator_input.to_str().unwrap()).unwrap();
+    let arg2 = CString::new(witness_output.to_str().unwrap()).unwrap();
+
+    let argv = vec![arg0.as_ptr(), arg1.as_ptr(), arg2.as_ptr()];
+    let argc = argv.len() as i32;
+
+    let exit_code = unsafe { analyzer_main(argc, argv.as_ptr()) };
+    if exit_code != 0 {
+        panic!("analyzer_main returned non-zero exit code: {}", exit_code);
+    }
+
     let _ = fs::remove_file(witness_generator_input);
     load_witness_from_file(witness_output)
 }
