@@ -333,7 +333,7 @@ void writeBinWitness(Circom_CalcWit *ctx, std::string wtnsFileName) {
     fclose(write_ptr);
 }
 
-int remain (int argc, char *argv[]) {
+int main (int argc, char *argv[]) {
   std::string cl(argv[0]);
   if (argc!=3) {
         std::cout << "Usage: " << cl << " <input.json> <output.wtns>\n";
