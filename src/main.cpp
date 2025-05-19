@@ -377,5 +377,6 @@ int analyzer_main (int argc, char *argv[]) {
    //std::cout << std::chrono::duration<double, std::milli>(t_end-t_mid).count()<<std::endl;
 
   }  
+  return 0;
 }
 }
