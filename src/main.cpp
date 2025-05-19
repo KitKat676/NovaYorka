@@ -25,7 +25,7 @@ Circom_Circuit* loadCircuit(std::string const &datFileName) {
     int fd;
     struct stat sb;
 
-    printf("Got to this point\n");
+    //printf("Got to this point\n");
 
     fd = open(datFileName.c_str(), O_RDONLY);
     if (fd == -1) {
@@ -290,7 +290,7 @@ void loadJson(Circom_CalcWit *ctx, std::string filename) {
 void writeBinWitness(Circom_CalcWit *ctx, std::string wtnsFileName) {
     FILE *write_ptr;
 
-    printf("Started writing witness\n");
+    //printf("Started writing witness\n");
     write_ptr = fopen(wtnsFileName.c_str(),"wb");
 
     fwrite("wtns", 4, 1, write_ptr);
@@ -333,7 +333,7 @@ void writeBinWitness(Circom_CalcWit *ctx, std::string wtnsFileName) {
         Fr_toLongNormal(&v, &v);
         fwrite(v.longVal, Fr_N64*8, 1, write_ptr);
     }
-    printf("Finished writing witness\n");
+    //printf("Finished writing witness\n");
     fclose(write_ptr);
 }
 
@@ -353,9 +353,9 @@ int analyzer_main (int argc, char *argv[]) {
 
    Circom_CalcWit *ctx = new Circom_CalcWit(circuit);
   
-   printf("About to load Json\n");
+   //printf("About to load Json\n");
    loadJson(ctx, jsonfile);
-   printf("Loaded Json\n");
+   //printf("Loaded Json\n");
    if (ctx->getRemaingInputsToBeSet()!=0) {
      std::cerr << "Not all inputs have been set. Only " << get_main_input_signal_no()-ctx->getRemaingInputsToBeSet() << " out of " << get_main_input_signal_no() << std::endl;
      assert(false);

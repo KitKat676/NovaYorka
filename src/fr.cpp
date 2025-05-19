@@ -228,7 +228,7 @@ std::string RawFr::toString(const Element &a, uint32_t radix) {
     char *res = mpz_get_str (0, radix, r);
     mpz_clear(r);
     std::string resS(res);
-    printf("Potential problem location?\n");
+    //printf("Potential problem location?\n");
     free(res);
     return resS;
 }

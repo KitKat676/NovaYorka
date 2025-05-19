@@ -69,7 +69,7 @@ pub fn generate_witness_from_bin<Fr: PrimeField>(
         panic!("analyzer_main returned non-zero exit code: {}", exit_code);
     }
 
-    println!("Exited witness generation\n");
+    //println!("Exited witness generation\n");
     let _ = fs::remove_file(witness_generator_input);
     load_witness_from_file(witness_output)
 }
