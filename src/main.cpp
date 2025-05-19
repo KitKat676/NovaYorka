@@ -351,6 +351,7 @@ int analyzer_main (int argc, char *argv[]) {
 
    Circom_CalcWit *ctx = new Circom_CalcWit(circuit);
   
+   printf("About to load Json\n");
    loadJson(ctx, jsonfile);
    if (ctx->getRemaingInputsToBeSet()!=0) {
      std::cerr << "Not all inputs have been set. Only " << get_main_input_signal_no()-ctx->getRemaingInputsToBeSet() << " out of " << get_main_input_signal_no() << std::endl;
