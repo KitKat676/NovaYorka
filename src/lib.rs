@@ -5,7 +5,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use crate::circom::reader::generate_witness_from_bin;
+use crate::circom::reader::{generate_witness_from_bin, load_r1cs};
 use circom::circuit::{CircomCircuit, R1CS};
 use ff::Field;
 use nova_snark::{
@@ -155,7 +155,7 @@ async fn compute_witness<G1, G2>(
 #[cfg(not(target_family = "wasm"))]
 pub fn create_recursive_circuit<G1, G2>(
     witness_generator_file: FileLocation,
-    r1cs: R1CS<F<G1>>,
+    //r1cs: R1CS<F<G1>>,
     private_inputs: Vec<HashMap<String, Value>>,
     start_public_input: Vec<F<G1>>,
     pp: &PublicParams<G1, G2, C1<G1>, C2<G2>>,
@@ -164,7 +164,14 @@ pub fn create_recursive_circuit<G1, G2>(
         G1: Group<Base = <G2 as Group>::Scalar>,
         G2: Group<Base = <G1 as Group>::Scalar>,
 {
+
+    //println!("Looking for circuit at: {:?}", circuit_file);
+    //let r1cs = load_r1cs::<G1, G2>(&FileLocation::PathBuf(circuit_file));
+    //println!("Loaded the R1CS file.");
     let root = current_dir().unwrap();
+    let circuit_file = root.join("analyzer.r1cs".to_string());
+    let r1cs = load_r1cs::<G1, G2>(&FileLocation::PathBuf(circuit_file));
+
     let witness_generator_output = root.join("circom_witness.wtns");
 
     let iteration_count = private_inputs.len();
