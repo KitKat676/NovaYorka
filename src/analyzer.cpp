@@ -57,7 +57,7 @@ uint get_size_of_input_hashmap() {return 256;}
 
 uint get_size_of_witness() {return 482;}
 
-uint get_size_of_constants() {return 16;}
+uint get_size_of_constants() {return 12;}
 
 uint get_size_of_io_map() {return 0;}
 
