@@ -63,6 +63,8 @@ pub fn generate_witness_from_bin<Fr: PrimeField>(
         witness_output.to_str().expect("Invalid UTF-8 in witness_output path")
     ).expect("Failed to create CString from witness_output");
 
+    println!("Here is the witness input json: {}", witness_input_json);
+    
     let json_str = CString::new(witness_input_json.as_str())
         .expect("Failed to create CString from witness_input_json");
 
