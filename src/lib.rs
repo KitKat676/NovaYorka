@@ -4,6 +4,7 @@ use std::{
     fs,
     path::{Path, PathBuf},
 };
+use std::time::Instant;
 
 use crate::circom::reader::{generate_witness_from_bin, load_r1cs};
 use circom::circuit::{CircomCircuit, R1CS};
@@ -171,7 +172,9 @@ pub fn create_recursive_circuit<G1, G2>(
     let root = current_dir().unwrap();
     let circuit_file = root.join("analyzer.r1cs".to_string());
     let r1cs = load_r1cs::<G1, G2>(&FileLocation::PathBuf(circuit_file));
+    let start = Instant::now();
     let pp: PublicParams<G1, G2, _, _> = create_public_params(r1cs.clone());
+    println!("PublicParams creation took {:?}", start.elapsed());
 
     let witness_generator_output = root.join("circom_witness.wtns");
 
