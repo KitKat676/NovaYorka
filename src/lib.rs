@@ -158,8 +158,8 @@ pub fn create_recursive_circuit<G1, G2>(
     //r1cs: R1CS<F<G1>>,
     private_inputs: Vec<HashMap<String, Value>>,
     start_public_input: Vec<F<G1>>,
-    pp: &PublicParams<G1, G2, C1<G1>, C2<G2>>,
-) -> Result<(Vec<<G1 as Group>::Scalar>,RecursiveSNARK<G1, G2, C1<G1>, C2<G2>>), std::io::Error>
+    //pp: &PublicParams<G1, G2, C1<G1>, C2<G2>>,
+) -> Result<(Vec<<G1 as Group>::Scalar>,RecursiveSNARK<G1, G2, C1<G1>, C2<G2>>,PublicParams<G1, G2, C1<G1>, C2<G2>>), std::io::Error>
     where
         G1: Group<Base = <G2 as Group>::Scalar>,
         G2: Group<Base = <G1 as Group>::Scalar>,
@@ -171,6 +171,7 @@ pub fn create_recursive_circuit<G1, G2>(
     let root = current_dir().unwrap();
     let circuit_file = root.join("analyzer.r1cs".to_string());
     let r1cs = load_r1cs::<G1, G2>(&FileLocation::PathBuf(circuit_file));
+    let pp: PublicParams<G1, G2, _, _> = create_public_params(r1cs.clone());
 
     let witness_generator_output = root.join("circom_witness.wtns");
 
@@ -234,7 +235,7 @@ pub fn create_recursive_circuit<G1, G2>(
         assert!(res.is_ok());
     }
     fs::remove_file(witness_generator_output)?;
-    let fin_res = (current_public_output, recursive_snark);
+    let fin_res = (current_public_output, recursive_snark, pp);
     Ok(fin_res)
 }
 
