@@ -9,6 +9,9 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 #include <chrono>
+#include <string>
+#include <cstring>
+#include <cassert>
 
 using json = nlohmann::json;
 
@@ -339,38 +342,45 @@ void writeBinWitness(Circom_CalcWit *ctx, std::string wtnsFileName) {
 }
 
 extern "C" {
-int analyzer_main (char* json_str, char* wtns_file) {
-  
-    // auto t_start = std::chrono::high_resolution_clock::now();
+void analyzer_main(char* json_str, char** out_witness) {
+    std::string datfile = "analyzer_cpp/analyzer.dat";
+    Circom_Circuit* circuit = loadCircuit(datfile);
+    Circom_CalcWit* ctx = new Circom_CalcWit(circuit);
 
-   std::string datfile = "analyzer_cpp/analyzer.dat";
-   Circom_Circuit *circuit = loadCircuit(datfile);
+    loadJson(ctx, std::string(json_str));
 
-   Circom_CalcWit *ctx = new Circom_CalcWit(circuit);
-  
-   //printf("About to load Json\n");
-   loadJson(ctx, std::string (json_str));
-   //printf("Loaded Json\n");
-   if (ctx->getRemaingInputsToBeSet()!=0) {
-     std::cerr << "Not all inputs have been set. Only " << get_main_input_signal_no()-ctx->getRemaingInputsToBeSet() << " out of " << get_main_input_signal_no() << std::endl;
-     assert(false);
-   }
-   /*
-     for (uint i = 0; i<get_size_of_witness(); i++){
-     FrElement x;
-     ctx->getWitness(i, &x);
-     std::cout << i << ": " << Fr_element2str(&x) << std::endl;
-     }
-   */
-  
-   //auto t_mid = std::chrono::high_resolution_clock::now();
-   //std::cout << std::chrono::duration<double, std::milli>(t_mid-t_start).count()<<std::endl;
+    if (ctx->getRemaingInputsToBeSet() != 0) {
+        std::cerr << "Not all inputs have been set." << std::endl;
+        delete ctx;
+        delete circuit;
+        *out_witness = nullptr;
+        //*out_len = 0;
+        return;
+    }
 
-   writeBinWitness(ctx,std::string (wtns_file));
-  
-   //auto t_end = std::chrono::high_resolution_clock::now();
-   //std::cout << std::chrono::duration<double, std::milli>(t_end-t_mid).count()<<std::endl;
+    std::string result_str;
+    for (uint32_t i = 0; i < get_size_of_witness(); i++) {
+        FrElement x;
+        ctx->getWitness(i, &x);
+        result_str += Fr_element2str(&x);
+        if (i != get_size_of_witness() - 1) result_str += ","; // comma-separated
+    }
 
-  return 0;
+    // Allocate C buffer and copy data
+    char* buffer = (char*) malloc(result_str.size() + 1);
+    std::memcpy(buffer, result_str.c_str(), result_str.size() + 1);
+
+    *out_witness = buffer;
+    //*out_len = result_str.size();
+
+    delete ctx;
+    delete circuit;
 }
+
+/*void free_witness(char** witness, uint32_t len) {
+    for (uint32_t i = 0; i < len; i++) {
+        free(witness[i]);
+    }
+    free(witness);
+}*/
 }
