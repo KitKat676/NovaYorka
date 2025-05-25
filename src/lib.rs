@@ -154,7 +154,7 @@ pub fn create_recursive_circuit<G1, G2>(
             witness_generator_file.clone(),
             &witness_generator_output,
         );
-        count_w += time_compute.elapsed().as_secs();
+        count_w += time_compute.elapsed().as_nanos();
 
         let circuit = CircomCircuit {
             r1cs: r1cs.clone(),
@@ -176,7 +176,7 @@ pub fn create_recursive_circuit<G1, G2>(
             start_public_input.clone(),
             z0_secondary.clone(),
         );
-        count_p += time_prove.elapsed().as_secs();
+        count_p += time_prove.elapsed().as_nanos();
 
         assert!(res.is_ok());
 
