@@ -141,10 +141,10 @@ pub fn create_recursive_circuit<G1, G2>(
     let mut current_public_output = circuit_0.get_public_outputs();
 
     let mut time_compute;
-    let mut count_w: u64 = 0;
+    let mut count_w: u128 = 0;
 
     let mut time_prove;
-    let mut count_p: u64 = 0;
+    let mut count_p: u128 = 0;
 
     for i in 0..iteration_count {
         time_compute = Instant::now();
