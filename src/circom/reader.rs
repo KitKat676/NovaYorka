@@ -49,7 +49,7 @@ extern "C" {
 */
 
 pub fn generate_witness_from_bin<Fr: PrimeField>(
-    witness_bin: &Path,
+    //witness_bin: &Path,
     witness_input_json: &String,
     witness_output: &Path,
 ) -> Vec<Fr> {
