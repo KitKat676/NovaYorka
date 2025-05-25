@@ -154,6 +154,7 @@ pub fn create_recursive_circuit<G1, G2>(
             witness_generator_file.clone(),
             &witness_generator_output,
         );
+        println!("Witness computation took {:?}", time_compute.elapsed());
         count_w += time_compute.elapsed().as_nanos();
 
         let circuit = CircomCircuit {
@@ -176,6 +177,7 @@ pub fn create_recursive_circuit<G1, G2>(
             start_public_input.clone(),
             z0_secondary.clone(),
         );
+        println!("Witness proving took {:?}", time_prove.elapsed());
         count_p += time_prove.elapsed().as_nanos();
 
         assert!(res.is_ok());
