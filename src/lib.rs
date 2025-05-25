@@ -139,13 +139,22 @@ pub fn create_recursive_circuit<G1, G2>(
         z0_secondary.clone(),
     );
     let mut current_public_output = circuit_0.get_public_outputs();
+
+    let mut time_compute;
+    let mut count_w: u64 = 0;
+
+    let mut time_prove;
+    let mut count_p: u64 = 0;
+
     for i in 0..iteration_count {
+        time_compute = Instant::now();
         let witness = compute_witness::<G1, G2>(
             current_public_input.clone(),
             private_inputs[i].clone(),
             witness_generator_file.clone(),
             &witness_generator_output,
         );
+        count_w += time_compute.elapsed().as_secs();
 
         let circuit = CircomCircuit {
             r1cs: r1cs.clone(),
@@ -159,6 +168,7 @@ pub fn create_recursive_circuit<G1, G2>(
             .map(|&x| format!("{:?}", x).strip_prefix("0x").unwrap().to_string())
             .collect();
 
+        time_prove = Instant::now();
         let res = recursive_snark.prove_step(
             &pp,
             &circuit,
@@ -166,8 +176,14 @@ pub fn create_recursive_circuit<G1, G2>(
             start_public_input.clone(),
             z0_secondary.clone(),
         );
+        count_p += time_prove.elapsed().as_secs();
+
         assert!(res.is_ok());
+
     }
+    println!("Witness computation took {}s", count_w);
+    println!("Witness proving took {}s", count_p);
+
     fs::remove_file(witness_generator_output)?;
     let fin_res = (current_public_output, recursive_snark, pp);
     Ok(fin_res)
