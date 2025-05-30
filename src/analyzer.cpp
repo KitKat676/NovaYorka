@@ -21,8 +21,8 @@ void IfElse_7_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string c
 void IfElse_7_run(uint ctx_index,Circom_CalcWit* ctx);
 void Step_8_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather);
 void Step_8_run(uint ctx_index,Circom_CalcWit* ctx);
-void TenStepMachine_9_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather);
-void TenStepMachine_9_run(uint ctx_index,Circom_CalcWit* ctx);
+void StepMachine_9_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather);
+void StepMachine_9_run(uint ctx_index,Circom_CalcWit* ctx);
 Circom_TemplateFunction _functionTable[10] = { 
 IsZero_0_run,
 IsEqual_1_run,
@@ -33,7 +33,7 @@ IfElse_5_run,
 IfElse_6_run,
 IfElse_7_run,
 Step_8_run,
-TenStepMachine_9_run };
+StepMachine_9_run };
 Circom_TemplateFunction _functionTableParallel[10] = { 
 NULL,
 NULL,
@@ -1287,9 +1287,9 @@ if (index_subc != 0)release_memory_component(ctx,index_subc);
 }
 }
 
-void TenStepMachine_9_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather){
+void StepMachine_9_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather){
 ctx->componentMemory[coffset].templateId = 9;
-ctx->componentMemory[coffset].templateName = "TenStepMachine";
+ctx->componentMemory[coffset].templateName = "StepMachine";
 ctx->componentMemory[coffset].signalStart = soffset;
 ctx->componentMemory[coffset].inputCounter = 21;
 ctx->componentMemory[coffset].componentName = componentName;
@@ -1297,7 +1297,7 @@ ctx->componentMemory[coffset].idFather = componentFather;
 ctx->componentMemory[coffset].subcomponents = new uint[20]{0};
 }
 
-void TenStepMachine_9_run(uint ctx_index,Circom_CalcWit* ctx){
+void StepMachine_9_run(uint ctx_index,Circom_CalcWit* ctx){
 FrElement* circuitConstants = ctx->circuitConstants;
 FrElement* signalValues = ctx->signalValues;
 FrElement expaux[1];
@@ -1966,7 +1966,7 @@ if (index_subc != 0)release_memory_component(ctx,index_subc);
 }
 
 void run(Circom_CalcWit* ctx){
-TenStepMachine_9_create(1,0,ctx,"main",0);
-TenStepMachine_9_run(0,ctx);
+StepMachine_9_create(1,0,ctx,"main",0);
+StepMachine_9_run(0,ctx);
 }
 
