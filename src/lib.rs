@@ -166,6 +166,7 @@ pub fn create_recursive_circuit<G1, G2>(
         G2: Group<Base = <G1 as Group>::Scalar>,
 {
 
+    println!("This is the n_input version of Nova Yorka\n");
     //println!("Looking for circuit at: {:?}", circuit_file);
     //let r1cs = load_r1cs::<G1, G2>(&FileLocation::PathBuf(circuit_file));
     //println!("Loaded the R1CS file.");
