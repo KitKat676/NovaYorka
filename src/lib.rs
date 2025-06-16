@@ -87,6 +87,8 @@ fn compute_witness<G1, G2>(
     };
     let input_json = serde_json::to_string(&input).unwrap();
 
+    println!("Step input json is {}", input_json);
+
     if is_wasm {
         generate_witness_from_wasm::<F<G1>>(
             &witness_generator_file,
