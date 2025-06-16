@@ -81,13 +81,13 @@ uint get_main_input_signal_start() {return 2;}
 
 uint get_main_input_signal_no() {return 2;}
 
-uint get_total_signal_no() {return 1233;}
+uint get_total_signal_no() {return 1234;}
 
 uint get_number_of_components() {return 203;}
 
 uint get_size_of_input_hashmap() {return 256;}
 
-uint get_size_of_witness() {return 960;}
+uint get_size_of_witness() {return 961;}
 
 uint get_size_of_constants() {return 23;}
 
@@ -1987,12 +1987,12 @@ Fr_copy(aux_dest,&circuitConstants[22]);
 }
 {
 std::string new_cmp_name = "eqState";
-IsEqual_1_create(mySignalStart+3,0+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+4,0+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[0] = 0+ctx_index+1;
 }
 {
 std::string new_cmp_name = "isAN";
-IsAlphanumeric_8_create(mySignalStart+9,2+ctx_index+1,ctx,new_cmp_name,myId);
+IsAlphanumeric_8_create(mySignalStart+10,2+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[1] = 2+ctx_index+1;
 }
 {
@@ -2034,14 +2034,21 @@ assert(!(ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
 IsAlphanumeric_8_run(mySubcomponents[cmp_index_ref],ctx);
 }
 {
-PFrElement aux_dest = &signalValues[mySignalStart + 0];
+PFrElement aux_dest = &signalValues[mySignalStart + 3];
 // load src
 cmp_index_ref_load = 0;
 cmp_index_ref_load = 0;
 cmp_index_ref_load = 1;
 cmp_index_ref_load = 1;
-Fr_sub(&expaux[1],&circuitConstants[1],&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0]); // line circom 105
-Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 0],&expaux[1]); // line circom 105
+Fr_sub(&expaux[1],&circuitConstants[1],&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0]); // line circom 106
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 0],&expaux[1]); // line circom 106
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+{
+PFrElement aux_dest = &signalValues[mySignalStart + 0];
+// load src
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 3],&circuitConstants[22]); // line circom 107
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2144,14 +2151,14 @@ cmp_index_ref_load = 0;
 cmp_index_ref_load = 0;
 cmp_index_ref_load = 1;
 cmp_index_ref_load = 1;
-Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0]); // line circom 121
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0]); // line circom 123
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 0];
 // load src
-Fr_mul(&expaux[0],&lvar[1],&circuitConstants[13]); // line circom 125
+Fr_mul(&expaux[0],&lvar[1],&circuitConstants[13]); // line circom 127
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2219,12 +2226,12 @@ mySubcomponents[5] = 145+ctx_index+1;
 }
 {
 std::string new_cmp_name = "br6";
-IfStuck_15_create(mySignalStart+1056,172+ctx_index+1,ctx,new_cmp_name,myId);
+IfStuck_15_create(mySignalStart+1057,172+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[6] = 172+ctx_index+1;
 }
 {
 std::string new_cmp_name = "final";
-IsEqual_1_create(mySignalStart+1223,199+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+1224,199+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[7] = 199+ctx_index+1;
 }
 {
@@ -2432,7 +2439,7 @@ PFrElement aux_dest = &signalValues[mySignalStart + 3];
 // load src
 cmp_index_ref_load = 7;
 cmp_index_ref_load = 7;
-Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[7]].signalStart + 0],&circuitConstants[22]); // line circom 160
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[7]].signalStart + 0],&circuitConstants[22]); // line circom 162
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2443,23 +2450,23 @@ cmp_index_ref_load = 0;
 cmp_index_ref_load = 0;
 cmp_index_ref_load = 1;
 cmp_index_ref_load = 1;
-Fr_add(&expaux[6],&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0]); // line circom 161
+Fr_add(&expaux[6],&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0]); // line circom 163
 cmp_index_ref_load = 2;
 cmp_index_ref_load = 2;
-Fr_add(&expaux[5],&expaux[6],&ctx->signalValues[ctx->componentMemory[mySubcomponents[2]].signalStart + 0]); // line circom 161
+Fr_add(&expaux[5],&expaux[6],&ctx->signalValues[ctx->componentMemory[mySubcomponents[2]].signalStart + 0]); // line circom 163
 cmp_index_ref_load = 3;
 cmp_index_ref_load = 3;
-Fr_add(&expaux[4],&expaux[5],&ctx->signalValues[ctx->componentMemory[mySubcomponents[3]].signalStart + 0]); // line circom 161
+Fr_add(&expaux[4],&expaux[5],&ctx->signalValues[ctx->componentMemory[mySubcomponents[3]].signalStart + 0]); // line circom 163
 cmp_index_ref_load = 4;
 cmp_index_ref_load = 4;
-Fr_add(&expaux[3],&expaux[4],&ctx->signalValues[ctx->componentMemory[mySubcomponents[4]].signalStart + 0]); // line circom 161
+Fr_add(&expaux[3],&expaux[4],&ctx->signalValues[ctx->componentMemory[mySubcomponents[4]].signalStart + 0]); // line circom 163
 cmp_index_ref_load = 5;
 cmp_index_ref_load = 5;
-Fr_add(&expaux[2],&expaux[3],&ctx->signalValues[ctx->componentMemory[mySubcomponents[5]].signalStart + 0]); // line circom 161
+Fr_add(&expaux[2],&expaux[3],&ctx->signalValues[ctx->componentMemory[mySubcomponents[5]].signalStart + 0]); // line circom 163
 cmp_index_ref_load = 6;
 cmp_index_ref_load = 6;
-Fr_add(&expaux[1],&expaux[2],&ctx->signalValues[ctx->componentMemory[mySubcomponents[6]].signalStart + 0]); // line circom 161
-Fr_add(&expaux[0],&expaux[1],&signalValues[mySignalStart + 3]); // line circom 161
+Fr_add(&expaux[1],&expaux[2],&ctx->signalValues[ctx->componentMemory[mySubcomponents[6]].signalStart + 0]); // line circom 163
+Fr_add(&expaux[0],&expaux[1],&signalValues[mySignalStart + 3]); // line circom 163
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
