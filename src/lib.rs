@@ -87,7 +87,7 @@ fn compute_witness<G1, G2>(
     };
     let input_json = serde_json::to_string(&input).unwrap();
 
-    println!("Step input json is {}", input_json);
+    //println!("Step input json is {}", input_json);
 
     if is_wasm {
         generate_witness_from_wasm::<F<G1>>(
@@ -226,7 +226,7 @@ pub fn create_recursive_circuit<G1, G2>(
         };
 
         current_public_output = circuit.get_public_outputs();
-        println!("The generated public output after iteration {:?} is {:?}", i, current_public_output);
+        //println!("The generated public output after iteration {:?} is {:?}", i, current_public_output);
         current_public_input = current_public_output
             .iter()
             .map(|&x| format!("{:?}", x).strip_prefix("0x").unwrap().to_string())
