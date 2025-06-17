@@ -176,6 +176,8 @@ pub fn create_recursive_circuit<G1, G2>(
     let circuit_file = root.join("analyzer.r1cs".to_string());
     println!("Loading R1CS from {}", circuit_file.display());
     let r1cs = load_r1cs::<G1, G2>(&FileLocation::PathBuf(circuit_file));
+    println!("Loaded R1CS ");
+    println!("Creating public parameters based on R1CS ");
     let start = Instant::now();
     let pp: PublicParams<G1, G2, _, _> = create_public_params(r1cs.clone());
     println!("PublicParams creation took {:?}", start.elapsed());
