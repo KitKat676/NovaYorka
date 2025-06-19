@@ -10543,18 +10543,18 @@ eval_24_run(mySubcomponents[cmp_index_ref],ctx);
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 0];
 // load src
-cmp_index_ref_load = 0;
-cmp_index_ref_load = 0;
+cmp_index_ref_load = 198;
+cmp_index_ref_load = 198;
 // end load src
-Fr_copy(aux_dest,&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 0]);
+Fr_copy(aux_dest,&ctx->signalValues[ctx->componentMemory[mySubcomponents[198]].signalStart + 0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 1];
 // load src
-cmp_index_ref_load = 1;
-cmp_index_ref_load = 1;
+cmp_index_ref_load = 199;
+cmp_index_ref_load = 199;
 // end load src
-Fr_copy(aux_dest,&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0]);
+Fr_copy(aux_dest,&ctx->signalValues[ctx->componentMemory[mySubcomponents[199]].signalStart + 0]);
 }
 for (uint i = 0; i < 200; i++){
 uint index_subc = ctx->componentMemory[ctx_index].subcomponents[i];
