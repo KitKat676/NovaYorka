@@ -1325,7 +1325,7 @@ uint cmp_index_ref = 10;
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
 // end load src
-Fr_copy(aux_dest,&circuitConstants[0]);
+Fr_copy(aux_dest,&circuitConstants[1]);
 }
 // need to run sub component
 ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
@@ -1350,7 +1350,7 @@ uint cmp_index_ref = 11;
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
 // end load src
-Fr_copy(aux_dest,&circuitConstants[0]);
+Fr_copy(aux_dest,&circuitConstants[20]);
 }
 // need to run sub component
 ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
@@ -1375,7 +1375,7 @@ uint cmp_index_ref = 12;
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
 // end load src
-Fr_copy(aux_dest,&circuitConstants[0]);
+Fr_copy(aux_dest,&circuitConstants[21]);
 }
 // need to run sub component
 ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
@@ -1400,7 +1400,7 @@ uint cmp_index_ref = 13;
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
 // end load src
-Fr_copy(aux_dest,&circuitConstants[0]);
+Fr_copy(aux_dest,&circuitConstants[22]);
 }
 // need to run sub component
 ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
@@ -1425,7 +1425,7 @@ uint cmp_index_ref = 14;
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
 // end load src
-Fr_copy(aux_dest,&circuitConstants[0]);
+Fr_copy(aux_dest,&circuitConstants[23]);
 }
 // need to run sub component
 ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
@@ -1450,7 +1450,7 @@ uint cmp_index_ref = 15;
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
 // end load src
-Fr_copy(aux_dest,&circuitConstants[0]);
+Fr_copy(aux_dest,&circuitConstants[19]);
 }
 // need to run sub component
 ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
