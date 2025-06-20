@@ -51,9 +51,9 @@ NULL,
 NULL };
 uint get_main_input_signal_start() {return 3;}
 
-uint get_main_input_signal_no() {return 5;}
+uint get_main_input_signal_no() {return 3;}
 
-uint get_total_signal_no() {return 248;}
+uint get_total_signal_no() {return 246;}
 
 uint get_number_of_components() {return 56;}
 
@@ -1687,7 +1687,7 @@ void MultiStep_10_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::stri
 ctx->componentMemory[coffset].templateId = 10;
 ctx->componentMemory[coffset].templateName = "MultiStep";
 ctx->componentMemory[coffset].signalStart = soffset;
-ctx->componentMemory[coffset].inputCounter = 5;
+ctx->componentMemory[coffset].inputCounter = 3;
 ctx->componentMemory[coffset].componentName = componentName;
 ctx->componentMemory[coffset].idFather = componentFather;
 ctx->componentMemory[coffset].subcomponents = new uint[1]{0};
@@ -1711,7 +1711,7 @@ uint index_multiple_eq;
 int cmp_index_ref_load = -1;
 {
 std::string new_cmp_name = "s0";
-Step_9_create(mySignalStart+7,0+ctx_index+1,ctx,new_cmp_name,myId);
+Step_9_create(mySignalStart+5,0+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[0] = 0+ctx_index+1;
 }
 {
