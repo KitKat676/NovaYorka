@@ -1490,7 +1490,7 @@ uint cmp_index_ref = 15;
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
 // end load src
-Fr_copy(aux_dest,&circuitConstants[23]);
+Fr_copy(aux_dest,&circuitConstants[24]);
 }
 // need to run sub component
 ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
