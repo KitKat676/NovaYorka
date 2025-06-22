@@ -53,13 +53,13 @@ uint get_main_input_signal_start() {return 6;}
 
 uint get_main_input_signal_no() {return 6;}
 
-uint get_total_signal_no() {return 495;}
+uint get_total_signal_no() {return 497;}
 
 uint get_number_of_components() {return 108;}
 
 uint get_size_of_input_hashmap() {return 256;}
 
-uint get_size_of_witness() {return 239;}
+uint get_size_of_witness() {return 240;}
 
 uint get_size_of_constants() {return 30;}
 
@@ -982,212 +982,212 @@ uint index_multiple_eq;
 int cmp_index_ref_load = -1;
 {
 std::string new_cmp_name = "is_a";
-IsEqual_1_create(mySignalStart+375,70+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+377,70+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[0] = 70+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_c";
-IsEqual_1_create(mySignalStart+387,74+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+389,74+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[1] = 74+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_e";
-IsEqual_1_create(mySignalStart+393,76+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+395,76+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[2] = 76+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_f";
-IsEqual_1_create(mySignalStart+399,78+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+401,78+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[3] = 78+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_h";
-IsEqual_1_create(mySignalStart+405,80+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+407,80+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[4] = 80+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_l";
-IsEqual_1_create(mySignalStart+411,82+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+413,82+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[5] = 82+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_t";
-IsEqual_1_create(mySignalStart+429,88+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+431,88+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[6] = 88+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_v";
-IsEqual_1_create(mySignalStart+435,90+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+437,90+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[7] = 90+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_slash";
-IsEqual_1_create(mySignalStart+417,84+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+419,84+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[8] = 84+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_CR";
-IsEqual_1_create(mySignalStart+363,66+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+365,66+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[9] = 66+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_SQ";
-IsEqual_1_create(mySignalStart+369,68+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+371,68+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[10] = 68+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_backsl";
-IsEqual_1_create(mySignalStart+381,72+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+383,72+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[11] = 72+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_star";
-IsEqual_1_create(mySignalStart+423,86+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+425,86+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[12] = 86+ctx_index+1;
 }
 {
 std::string new_cmp_name = "AN";
-IsAlphanumeric_8_create(mySignalStart+79,0+ctx_index+1,ctx,new_cmp_name,myId);
+IsAlphanumeric_8_create(mySignalStart+81,0+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[13] = 0+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eq_cmt";
-IsEqual_1_create(mySignalStart+255,30+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+257,30+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[14] = 30+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eq_qut";
-IsEqual_1_create(mySignalStart+267,34+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+269,34+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[15] = 34+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eq_mlcmt";
-IsEqual_1_create(mySignalStart+261,32+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+263,32+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[16] = 32+ctx_index+1;
 }
 {
 std::string new_cmp_name = "fetch_st_0";
-IsEqual_1_create(mySignalStart+315,50+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+317,50+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[17] = 50+ctx_index+1;
 }
 {
 std::string new_cmp_name = "fetch_st_1";
-IsEqual_1_create(mySignalStart+321,52+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+323,52+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[18] = 52+ctx_index+1;
 }
 {
 std::string new_cmp_name = "fetch_st_2";
-IsEqual_1_create(mySignalStart+333,56+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+335,56+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[19] = 56+ctx_index+1;
 }
 {
 std::string new_cmp_name = "fetch_st_3";
-IsEqual_1_create(mySignalStart+339,58+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+341,58+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[20] = 58+ctx_index+1;
 }
 {
 std::string new_cmp_name = "fetch_st_4";
-IsEqual_1_create(mySignalStart+345,60+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+347,60+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[21] = 60+ctx_index+1;
 }
 {
 std::string new_cmp_name = "fetch_st_5";
-IsEqual_1_create(mySignalStart+351,62+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+353,62+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[22] = 62+ctx_index+1;
 }
 {
 std::string new_cmp_name = "fetch_st_6";
-IsEqual_1_create(mySignalStart+357,64+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+359,64+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[23] = 64+ctx_index+1;
 }
 {
 std::string new_cmp_name = "fetch_st_100";
-IsEqual_1_create(mySignalStart+327,54+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+329,54+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[24] = 54+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eval_st_0";
-IsEqual_1_create(mySignalStart+273,36+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+275,36+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[25] = 36+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eval_st_1";
-IsEqual_1_create(mySignalStart+279,38+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+281,38+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[26] = 38+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eval_st_2";
-IsEqual_1_create(mySignalStart+291,42+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+293,42+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[27] = 42+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eval_st_3";
-IsEqual_1_create(mySignalStart+297,44+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+299,44+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[28] = 44+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eval_st_4";
-IsEqual_1_create(mySignalStart+303,46+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+305,46+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[29] = 46+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eval_st_5";
-IsEqual_1_create(mySignalStart+309,48+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+311,48+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[30] = 48+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eval_st_100";
-IsEqual_1_create(mySignalStart+285,40+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+287,40+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[31] = 40+ctx_index+1;
 }
 {
 std::string new_cmp_name = "cmteol_st_0";
-IsEqual_1_create(mySignalStart+237,24+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+239,24+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[32] = 24+ctx_index+1;
 }
 {
 std::string new_cmp_name = "cmteol_st_1";
-IsEqual_1_create(mySignalStart+243,26+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+245,26+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[33] = 26+ctx_index+1;
 }
 {
 std::string new_cmp_name = "cmteol_st_2";
-IsEqual_1_create(mySignalStart+249,28+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+251,28+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[34] = 28+ctx_index+1;
 }
 {
 std::string new_cmp_name = "sq_st_0";
-IsEqual_1_create(mySignalStart+465,100+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+467,100+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[35] = 100+ctx_index+1;
 }
 {
 std::string new_cmp_name = "sq_st_1";
-IsEqual_1_create(mySignalStart+471,102+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+473,102+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[36] = 102+ctx_index+1;
 }
 {
 std::string new_cmp_name = "sq_st_2";
-IsEqual_1_create(mySignalStart+477,104+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+479,104+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[37] = 104+ctx_index+1;
 }
 {
 std::string new_cmp_name = "mlcmt_st_0";
-IsEqual_1_create(mySignalStart+441,92+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+443,92+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[38] = 92+ctx_index+1;
 }
 {
 std::string new_cmp_name = "mlcmt_st_1";
-IsEqual_1_create(mySignalStart+447,94+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+449,94+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[39] = 94+ctx_index+1;
 }
 {
 std::string new_cmp_name = "mlcmt_st_2";
-IsEqual_1_create(mySignalStart+453,96+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+455,96+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[40] = 96+ctx_index+1;
 }
 {
 std::string new_cmp_name = "mlcmt_st_3";
-IsEqual_1_create(mySignalStart+459,98+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_1_create(mySignalStart+461,98+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[41] = 98+ctx_index+1;
 }
 {
@@ -2932,10 +2932,29 @@ Fr_mul(&expaux[0],&signalValues[mySignalStart + 77],&circuitConstants[1]); // li
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
+PFrElement aux_dest = &signalValues[mySignalStart + 79];
+// load src
+cmp_index_ref_load = 39;
+cmp_index_ref_load = 39;
+cmp_index_ref_load = 12;
+cmp_index_ref_load = 12;
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[39]].signalStart + 0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[12]].signalStart + 0]); // line circom 253
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+{
+PFrElement aux_dest = &signalValues[mySignalStart + 80];
+// load src
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 77],&circuitConstants[25]); // line circom 254
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+{
 PFrElement aux_dest = &signalValues[mySignalStart + 4];
 // load src
+Fr_add(&expaux[0],&signalValues[mySignalStart + 78],&signalValues[mySignalStart + 80]); // line circom 268
 // end load src
-Fr_copy(aux_dest,&signalValues[mySignalStart + 78]);
+Fr_copy(aux_dest,&expaux[0]);
 }
 for (uint i = 0; i < 42; i++){
 uint index_subc = ctx->componentMemory[ctx_index].subcomponents[i];
