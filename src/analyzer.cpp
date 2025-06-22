@@ -2927,7 +2927,7 @@ Fr_copy(aux_dest,&expaux[0]);
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 78];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 77],&circuitConstants[1]); // line circom 251
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 77],&circuitConstants[24]); // line circom 251
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
