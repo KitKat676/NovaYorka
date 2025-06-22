@@ -61,7 +61,7 @@ uint get_size_of_input_hashmap() {return 256;}
 
 uint get_size_of_witness() {return 154;}
 
-uint get_size_of_constants() {return 30;}
+uint get_size_of_constants() {return 29;}
 
 uint get_size_of_io_map() {return 0;}
 
@@ -1687,7 +1687,7 @@ Fr_copy(aux_dest,&expaux[0]);
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 15];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 12],&circuitConstants[28]); // line circom 261
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 12],&circuitConstants[25]); // line circom 261
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -1755,7 +1755,7 @@ PFrElement aux_dest = &lvar[0];
 // end load src
 Fr_copy(aux_dest,&circuitConstants[0]);
 }
-Fr_lt(&expaux[0],&lvar[0],&circuitConstants[29]); // line circom 289
+Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 289
 while(Fr_isTrue(&expaux[0])){
 {
 uint cmp_index_ref = 0;
@@ -1778,7 +1778,7 @@ Fr_add(&expaux[0],&lvar[0],&circuitConstants[1]); // line circom 289
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[0],&circuitConstants[29]); // line circom 289
+Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 289
 }
 {
 PFrElement aux_dest = &lvar[0];
@@ -1786,7 +1786,7 @@ PFrElement aux_dest = &lvar[0];
 // end load src
 Fr_copy(aux_dest,&circuitConstants[0]);
 }
-Fr_lt(&expaux[0],&lvar[0],&circuitConstants[29]); // line circom 293
+Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 293
 while(Fr_isTrue(&expaux[0])){
 {
 PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[0])) + 0)];
@@ -1803,7 +1803,7 @@ Fr_add(&expaux[0],&lvar[0],&circuitConstants[1]); // line circom 293
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[0],&circuitConstants[29]); // line circom 293
+Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 293
 }
 for (uint i = 0; i < 1; i++){
 uint index_subc = ctx->componentMemory[ctx_index].subcomponents[i];
