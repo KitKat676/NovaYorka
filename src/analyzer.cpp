@@ -3036,9 +3036,8 @@ Fr_copy(aux_dest,&expaux[0]);
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 4];
 // load src
-Fr_add(&expaux[0],&signalValues[mySignalStart + 78],&signalValues[mySignalStart + 80]); // line circom 275
 // end load src
-Fr_copy(aux_dest,&expaux[0]);
+Fr_copy(aux_dest,&signalValues[mySignalStart + 80]);
 }
 for (uint i = 0; i < 42; i++){
 uint index_subc = ctx->componentMemory[ctx_index].subcomponents[i];
@@ -3097,7 +3096,7 @@ PFrElement aux_dest = &lvar[0];
 // end load src
 Fr_copy(aux_dest,&circuitConstants[0]);
 }
-Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 285
+Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 286
 while(Fr_isTrue(&expaux[0])){
 {
 uint cmp_index_ref = 0;
@@ -3116,11 +3115,11 @@ Step_9_run(mySubcomponents[cmp_index_ref],ctx);
 {
 PFrElement aux_dest = &lvar[0];
 // load src
-Fr_add(&expaux[0],&lvar[0],&circuitConstants[1]); // line circom 285
+Fr_add(&expaux[0],&lvar[0],&circuitConstants[1]); // line circom 286
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 285
+Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 286
 }
 {
 PFrElement aux_dest = &lvar[0];
@@ -3128,7 +3127,7 @@ PFrElement aux_dest = &lvar[0];
 // end load src
 Fr_copy(aux_dest,&circuitConstants[0]);
 }
-Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 289
+Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 290
 while(Fr_isTrue(&expaux[0])){
 {
 PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[0])) + 0)];
@@ -3141,11 +3140,11 @@ Fr_copy(aux_dest,&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].sig
 {
 PFrElement aux_dest = &lvar[0];
 // load src
-Fr_add(&expaux[0],&lvar[0],&circuitConstants[1]); // line circom 289
+Fr_add(&expaux[0],&lvar[0],&circuitConstants[1]); // line circom 290
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 289
+Fr_lt(&expaux[0],&lvar[0],&circuitConstants[28]); // line circom 290
 }
 for (uint i = 0; i < 1; i++){
 uint index_subc = ctx->componentMemory[ctx_index].subcomponents[i];
