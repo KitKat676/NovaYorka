@@ -3036,8 +3036,10 @@ Fr_copy(aux_dest,&expaux[0]);
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 4];
 // load src
+cmp_index_ref_load = 12;
+cmp_index_ref_load = 12;
 // end load src
-Fr_copy(aux_dest,&signalValues[mySignalStart + 10]);
+Fr_copy(aux_dest,&ctx->signalValues[ctx->componentMemory[mySubcomponents[12]].signalStart + 0]);
 }
 for (uint i = 0; i < 42; i++){
 uint index_subc = ctx->componentMemory[ctx_index].subcomponents[i];
