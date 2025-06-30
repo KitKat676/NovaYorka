@@ -33,13 +33,13 @@ uint get_main_input_signal_start() {return 13;}
 
 uint get_main_input_signal_no() {return 13;}
 
-uint get_total_signal_no() {return 323;}
+uint get_total_signal_no() {return 443;}
 
 uint get_number_of_components() {return 68;}
 
 uint get_size_of_input_hashmap() {return 256;}
 
-uint get_size_of_witness() {return 233;}
+uint get_size_of_witness() {return 353;}
 
 uint get_size_of_constants() {return 8;}
 
@@ -170,7 +170,7 @@ while(Fr_isTrue(&expaux[0])){
 {
 PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[3])) + 0)];
 // load src
-Fr_shr(&expaux[1],&signalValues[mySignalStart + 5],&lvar[3]); // line circom 32
+Fr_shr(&expaux[1],&signalValues[mySignalStart + 17],&lvar[3]); // line circom 32
 Fr_band(&expaux[0],&expaux[1],&circuitConstants[2]); // line circom 32
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
@@ -210,7 +210,7 @@ Fr_lt(&expaux[0],&lvar[3],&circuitConstants[0]); // line circom 31
 }
 {
 {{
-Fr_eq(&expaux[0],&lvar[1],&signalValues[mySignalStart + 5]); // line circom 38
+Fr_eq(&expaux[0],&lvar[1],&signalValues[mySignalStart + 17]); // line circom 38
 }}
 if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template/function " << myTemplateName << " line 38. " <<  "Followed trace of components: " << ctx->getTrace(myId) << std::endl;
 assert(Fr_isTrue(&expaux[0]));
@@ -265,7 +265,7 @@ assert(Fr_isTrue(&circuitConstants[2]));
 {
 uint cmp_index_ref = 0;
 {
-PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 5];
+PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 17];
 // load src
 Fr_add(&expaux[1],&signalValues[mySignalStart + 1],&circuitConstants[4]); // line circom 96
 Fr_sub(&expaux[0],&expaux[1],&signalValues[mySignalStart + 2]); // line circom 96
@@ -282,7 +282,7 @@ PFrElement aux_dest = &signalValues[mySignalStart + 0];
 // load src
 cmp_index_ref_load = 0;
 cmp_index_ref_load = 0;
-Fr_sub(&expaux[0],&circuitConstants[2],&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 4]); // line circom 98
+Fr_sub(&expaux[0],&circuitConstants[2],&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 16]); // line circom 98
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -485,7 +485,7 @@ for (uint i = 0; i < 10; i++) {
 std::string new_cmp_name = "length_check"+ctx->generate_position_array(aux_dimensions, 1, i);
 LessThan_2_create(csoffset,aux_cmp_num,ctx,new_cmp_name,myId);
 mySubcomponents[aux_create+ i] = aux_cmp_num;
-csoffset += 9 ;
+csoffset += 21 ;
 aux_cmp_num += 2;
 }
 }
