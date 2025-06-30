@@ -431,7 +431,7 @@ void Step_5_run(uint ctx_index,Circom_CalcWit* ctx){
 FrElement* circuitConstants = ctx->circuitConstants;
 FrElement* signalValues = ctx->signalValues;
 FrElement expaux[3];
-FrElement lvar[6];
+FrElement lvar[7];
 u64 mySignalStart = ctx->componentMemory[ctx_index].signalStart;
 std::string myTemplateName = ctx->componentMemory[ctx_index].templateName;
 std::string myComponentName = ctx->componentMemory[ctx_index].componentName;
@@ -523,12 +523,18 @@ PFrElement aux_dest = &lvar[2];
 Fr_copy(aux_dest,&signalValues[mySignalStart + 13]);
 }
 {
+PFrElement aux_dest = &lvar[3];
+// load src
+// end load src
+Fr_copy(aux_dest,&signalValues[mySignalStart + 24]);
+}
+{
 uint cmp_index_ref = 22;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 1];
 // load src
 // end load src
-Fr_copy(aux_dest,&signalValues[mySignalStart + 24]);
+Fr_copy(aux_dest,&lvar[3]);
 }
 // need to run sub component
 ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
@@ -536,7 +542,7 @@ assert(!(ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
 IsAlphanumeric_0_run(mySubcomponents[cmp_index_ref],ctx);
 }
 {
-PFrElement aux_dest = &lvar[3];
+PFrElement aux_dest = &lvar[4];
 // load src
 cmp_index_ref_load = 22;
 cmp_index_ref_load = 22;
@@ -544,15 +550,15 @@ cmp_index_ref_load = 22;
 Fr_copy(aux_dest,&ctx->signalValues[ctx->componentMemory[mySubcomponents[22]].signalStart + 0]);
 }
 {
-PFrElement aux_dest = &lvar[4];
+PFrElement aux_dest = &lvar[5];
 // load src
 // end load src
 Fr_copy(aux_dest,&circuitConstants[1]);
 }
-Fr_lt(&expaux[0],&lvar[4],&circuitConstants[5]); // line circom 79
+Fr_lt(&expaux[0],&lvar[5],&circuitConstants[5]); // line circom 80
 while(Fr_isTrue(&expaux[0])){
 {
-uint cmp_index_ref = ((1 * Fr_toInt(&lvar[4])) + 23);
+uint cmp_index_ref = ((1 * Fr_toInt(&lvar[5])) + 23);
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 1];
 // load src
@@ -566,7 +572,7 @@ LessThan_2_run(mySubcomponents[cmp_index_ref],ctx);
 }
 }
 {
-uint cmp_index_ref = ((1 * Fr_toInt(&lvar[4])) + 23);
+uint cmp_index_ref = ((1 * Fr_toInt(&lvar[5])) + 23);
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
@@ -580,29 +586,29 @@ LessThan_2_run(mySubcomponents[cmp_index_ref],ctx);
 }
 }
 {
-PFrElement aux_dest = &lvar[4];
+PFrElement aux_dest = &lvar[5];
 // load src
-Fr_add(&expaux[0],&lvar[4],&circuitConstants[2]); // line circom 79
+Fr_add(&expaux[0],&lvar[5],&circuitConstants[2]); // line circom 80
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[4],&circuitConstants[5]); // line circom 79
+Fr_lt(&expaux[0],&lvar[5],&circuitConstants[5]); // line circom 80
 }
 {
-PFrElement aux_dest = &lvar[4];
+PFrElement aux_dest = &lvar[5];
 // load src
 // end load src
 Fr_copy(aux_dest,&circuitConstants[1]);
 }
-Fr_lt(&expaux[0],&lvar[4],&circuitConstants[5]); // line circom 85
+Fr_lt(&expaux[0],&lvar[5],&circuitConstants[5]); // line circom 86
 while(Fr_isTrue(&expaux[0])){
 {
-uint cmp_index_ref = ((1 * Fr_toInt(&lvar[4])) + 0);
+uint cmp_index_ref = ((1 * Fr_toInt(&lvar[5])) + 0);
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 1];
 // load src
 // end load src
-Fr_copy(aux_dest,&signalValues[mySignalStart + 24]);
+Fr_copy(aux_dest,&lvar[3]);
 }
 // run sub component if needed
 if(!(ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1)){
@@ -611,7 +617,7 @@ IsEqual_4_run(mySubcomponents[cmp_index_ref],ctx);
 }
 }
 {
-uint cmp_index_ref = ((1 * Fr_toInt(&lvar[4])) + 0);
+uint cmp_index_ref = ((1 * Fr_toInt(&lvar[5])) + 0);
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
@@ -625,29 +631,29 @@ IsEqual_4_run(mySubcomponents[cmp_index_ref],ctx);
 }
 }
 {
-PFrElement aux_dest = &lvar[4];
+PFrElement aux_dest = &lvar[5];
 // load src
-Fr_add(&expaux[0],&lvar[4],&circuitConstants[2]); // line circom 85
+Fr_add(&expaux[0],&lvar[5],&circuitConstants[2]); // line circom 86
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[4],&circuitConstants[5]); // line circom 85
+Fr_lt(&expaux[0],&lvar[5],&circuitConstants[5]); // line circom 86
 }
 {
-PFrElement aux_dest = &lvar[4];
+PFrElement aux_dest = &lvar[5];
 // load src
 // end load src
 Fr_copy(aux_dest,&circuitConstants[1]);
 }
-Fr_lt(&expaux[0],&lvar[4],&circuitConstants[5]); // line circom 91
+Fr_lt(&expaux[0],&lvar[5],&circuitConstants[5]); // line circom 92
 while(Fr_isTrue(&expaux[0])){
 {
-uint cmp_index_ref = ((1 * Fr_toInt(&lvar[4])) + 10);
+uint cmp_index_ref = ((1 * Fr_toInt(&lvar[5])) + 10);
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 1];
 // load src
 // end load src
-Fr_copy(aux_dest,&lvar[4]);
+Fr_copy(aux_dest,&lvar[5]);
 }
 // run sub component if needed
 if(!(ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1)){
@@ -656,7 +662,7 @@ IsEqual_4_run(mySubcomponents[cmp_index_ref],ctx);
 }
 }
 {
-uint cmp_index_ref = ((1 * Fr_toInt(&lvar[4])) + 10);
+uint cmp_index_ref = ((1 * Fr_toInt(&lvar[5])) + 10);
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
@@ -670,19 +676,13 @@ IsEqual_4_run(mySubcomponents[cmp_index_ref],ctx);
 }
 }
 {
-PFrElement aux_dest = &lvar[4];
+PFrElement aux_dest = &lvar[5];
 // load src
-Fr_add(&expaux[0],&lvar[4],&circuitConstants[2]); // line circom 91
+Fr_add(&expaux[0],&lvar[5],&circuitConstants[2]); // line circom 92
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[4],&circuitConstants[5]); // line circom 91
-}
-{
-PFrElement aux_dest = &lvar[4];
-// load src
-// end load src
-Fr_copy(aux_dest,&circuitConstants[1]);
+Fr_lt(&expaux[0],&lvar[5],&circuitConstants[5]); // line circom 92
 }
 {
 PFrElement aux_dest = &lvar[5];
@@ -690,102 +690,108 @@ PFrElement aux_dest = &lvar[5];
 // end load src
 Fr_copy(aux_dest,&circuitConstants[1]);
 }
-Fr_lt(&expaux[0],&lvar[5],&circuitConstants[5]); // line circom 101
+{
+PFrElement aux_dest = &lvar[6];
+// load src
+// end load src
+Fr_copy(aux_dest,&circuitConstants[1]);
+}
+Fr_lt(&expaux[0],&lvar[6],&circuitConstants[5]); // line circom 102
 while(Fr_isTrue(&expaux[0])){
 {
-PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 25)];
+PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 25)];
 // load src
-cmp_index_ref_load = ((1 * Fr_toInt(&lvar[5])) + 10);
-cmp_index_ref_load = ((1 * Fr_toInt(&lvar[5])) + 10);
-cmp_index_ref_load = ((1 * Fr_toInt(&lvar[5])) + 0);
-cmp_index_ref_load = ((1 * Fr_toInt(&lvar[5])) + 0);
-Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[((1 * Fr_toInt(&lvar[5])) + 10)]].signalStart + 0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[((1 * Fr_toInt(&lvar[5])) + 0)]].signalStart + 0]); // line circom 102
+cmp_index_ref_load = ((1 * Fr_toInt(&lvar[6])) + 10);
+cmp_index_ref_load = ((1 * Fr_toInt(&lvar[6])) + 10);
+cmp_index_ref_load = ((1 * Fr_toInt(&lvar[6])) + 0);
+cmp_index_ref_load = ((1 * Fr_toInt(&lvar[6])) + 0);
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[((1 * Fr_toInt(&lvar[6])) + 10)]].signalStart + 0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[((1 * Fr_toInt(&lvar[6])) + 0)]].signalStart + 0]); // line circom 103
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
-PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 35)];
+PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 35)];
 // load src
-cmp_index_ref_load = ((1 * Fr_toInt(&lvar[5])) + 23);
-cmp_index_ref_load = ((1 * Fr_toInt(&lvar[5])) + 23);
-Fr_mul(&expaux[0],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 25)],&ctx->signalValues[ctx->componentMemory[mySubcomponents[((1 * Fr_toInt(&lvar[5])) + 23)]].signalStart + 0]); // line circom 103
+cmp_index_ref_load = ((1 * Fr_toInt(&lvar[6])) + 23);
+cmp_index_ref_load = ((1 * Fr_toInt(&lvar[6])) + 23);
+Fr_mul(&expaux[0],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 25)],&ctx->signalValues[ctx->componentMemory[mySubcomponents[((1 * Fr_toInt(&lvar[6])) + 23)]].signalStart + 0]); // line circom 104
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
-PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 45)];
+PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 45)];
 // load src
-Fr_add(&expaux[1],&lvar[5],&circuitConstants[2]); // line circom 104
-Fr_mul(&expaux[0],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 35)],&expaux[1]); // line circom 104
-// end load src
-Fr_copy(aux_dest,&expaux[0]);
-}
-{
-PFrElement aux_dest = &lvar[4];
-// load src
-Fr_add(&expaux[0],&lvar[4],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 45)]); // line circom 105
+Fr_add(&expaux[1],&lvar[6],&circuitConstants[2]); // line circom 105
+Fr_mul(&expaux[0],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 35)],&expaux[1]); // line circom 105
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &lvar[5];
 // load src
-Fr_add(&expaux[0],&lvar[5],&circuitConstants[2]); // line circom 101
+Fr_add(&expaux[0],&lvar[5],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 45)]); // line circom 106
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[5],&circuitConstants[5]); // line circom 101
+{
+PFrElement aux_dest = &lvar[6];
+// load src
+Fr_add(&expaux[0],&lvar[6],&circuitConstants[2]); // line circom 102
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+Fr_lt(&expaux[0],&lvar[6],&circuitConstants[5]); // line circom 102
 }
 {
-PFrElement aux_dest = &lvar[5];
+PFrElement aux_dest = &lvar[6];
 // load src
 // end load src
 Fr_copy(aux_dest,&circuitConstants[1]);
 }
-Fr_lt(&expaux[0],&lvar[5],&circuitConstants[5]); // line circom 111
+Fr_lt(&expaux[0],&lvar[6],&circuitConstants[5]); // line circom 112
 while(Fr_isTrue(&expaux[0])){
 {
-PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 55)];
+PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 55)];
 // load src
-cmp_index_ref_load = ((1 * Fr_toInt(&lvar[5])) + 10);
-cmp_index_ref_load = ((1 * Fr_toInt(&lvar[5])) + 10);
-Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[((1 * Fr_toInt(&lvar[5])) + 10)]].signalStart + 0],&lvar[3]); // line circom 112
+cmp_index_ref_load = ((1 * Fr_toInt(&lvar[6])) + 10);
+cmp_index_ref_load = ((1 * Fr_toInt(&lvar[6])) + 10);
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[((1 * Fr_toInt(&lvar[6])) + 10)]].signalStart + 0],&lvar[4]); // line circom 113
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
-PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 65)];
+PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 65)];
 // load src
-cmp_index_ref_load = ((1 * Fr_toInt(&lvar[5])) + 0);
-cmp_index_ref_load = ((1 * Fr_toInt(&lvar[5])) + 0);
-Fr_sub(&expaux[1],&circuitConstants[2],&ctx->signalValues[ctx->componentMemory[mySubcomponents[((1 * Fr_toInt(&lvar[5])) + 0)]].signalStart + 0]); // line circom 113
-Fr_mul(&expaux[0],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 55)],&expaux[1]); // line circom 113
+cmp_index_ref_load = ((1 * Fr_toInt(&lvar[6])) + 0);
+cmp_index_ref_load = ((1 * Fr_toInt(&lvar[6])) + 0);
+Fr_sub(&expaux[1],&circuitConstants[2],&ctx->signalValues[ctx->componentMemory[mySubcomponents[((1 * Fr_toInt(&lvar[6])) + 0)]].signalStart + 0]); // line circom 114
+Fr_mul(&expaux[0],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 55)],&expaux[1]); // line circom 114
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
-PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 75)];
+PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 75)];
 // load src
-Fr_add(&expaux[1],&lvar[2],&circuitConstants[6]); // line circom 114
-Fr_mul(&expaux[0],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 65)],&expaux[1]); // line circom 114
-// end load src
-Fr_copy(aux_dest,&expaux[0]);
-}
-{
-PFrElement aux_dest = &lvar[4];
-// load src
-Fr_add(&expaux[0],&lvar[4],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 75)]); // line circom 115
+Fr_add(&expaux[1],&lvar[2],&circuitConstants[6]); // line circom 115
+Fr_mul(&expaux[0],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 65)],&expaux[1]); // line circom 115
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &lvar[5];
 // load src
-Fr_add(&expaux[0],&lvar[5],&circuitConstants[2]); // line circom 111
+Fr_add(&expaux[0],&lvar[5],&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 75)]); // line circom 116
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[5],&circuitConstants[5]); // line circom 111
+{
+PFrElement aux_dest = &lvar[6];
+// load src
+Fr_add(&expaux[0],&lvar[6],&circuitConstants[2]); // line circom 112
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+Fr_lt(&expaux[0],&lvar[6],&circuitConstants[5]); // line circom 112
 }
 {
 uint cmp_index_ref = 33;
@@ -817,15 +823,15 @@ PFrElement aux_dest = &signalValues[mySignalStart + 85];
 // load src
 cmp_index_ref_load = 33;
 cmp_index_ref_load = 33;
-Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[33]].signalStart + 0],&lvar[3]); // line circom 123
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[33]].signalStart + 0],&lvar[4]); // line circom 124
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 86];
 // load src
-Fr_add(&expaux[1],&lvar[2],&circuitConstants[6]); // line circom 124
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 85],&expaux[1]); // line circom 124
+Fr_add(&expaux[1],&lvar[2],&circuitConstants[6]); // line circom 125
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 85],&expaux[1]); // line circom 125
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -846,7 +852,7 @@ uint cmp_index_ref = 34;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
-Fr_add(&expaux[0],&lvar[2],&circuitConstants[6]); // line circom 130
+Fr_add(&expaux[0],&lvar[2],&circuitConstants[6]); // line circom 131
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -860,22 +866,22 @@ PFrElement aux_dest = &signalValues[mySignalStart + 87];
 // load src
 cmp_index_ref_load = 34;
 cmp_index_ref_load = 34;
-Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[34]].signalStart + 0],&lvar[3]); // line circom 131
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[34]].signalStart + 0],&lvar[4]); // line circom 132
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 88];
 // load src
-Fr_add(&expaux[1],&lvar[2],&circuitConstants[6]); // line circom 132
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 87],&expaux[1]); // line circom 132
+Fr_add(&expaux[1],&lvar[2],&circuitConstants[6]); // line circom 133
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 87],&expaux[1]); // line circom 133
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
-PFrElement aux_dest = &lvar[4];
+PFrElement aux_dest = &lvar[5];
 // load src
-Fr_add(&expaux[0],&lvar[4],&signalValues[mySignalStart + 88]); // line circom 133
+Fr_add(&expaux[0],&lvar[5],&signalValues[mySignalStart + 88]); // line circom 134
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -884,23 +890,23 @@ PFrElement aux_dest = &signalValues[mySignalStart + 89];
 // load src
 cmp_index_ref_load = 33;
 cmp_index_ref_load = 33;
-Fr_sub(&expaux[1],&circuitConstants[2],&lvar[3]); // line circom 137
-Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[33]].signalStart + 0],&expaux[1]); // line circom 137
+Fr_sub(&expaux[1],&circuitConstants[2],&lvar[4]); // line circom 138
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[33]].signalStart + 0],&expaux[1]); // line circom 138
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 90];
 // load src
-Fr_add(&expaux[1],&lvar[2],&circuitConstants[2]); // line circom 138
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 89],&expaux[1]); // line circom 138
+Fr_add(&expaux[1],&lvar[2],&circuitConstants[2]); // line circom 139
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 89],&expaux[1]); // line circom 139
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
-PFrElement aux_dest = &lvar[4];
+PFrElement aux_dest = &lvar[5];
 // load src
-Fr_add(&expaux[0],&lvar[4],&signalValues[mySignalStart + 90]); // line circom 139
+Fr_add(&expaux[0],&lvar[5],&signalValues[mySignalStart + 90]); // line circom 140
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -921,7 +927,7 @@ uint cmp_index_ref = 35;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
-Fr_add(&expaux[0],&lvar[2],&circuitConstants[2]); // line circom 145
+Fr_add(&expaux[0],&lvar[2],&circuitConstants[2]); // line circom 146
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -935,15 +941,15 @@ PFrElement aux_dest = &signalValues[mySignalStart + 91];
 // load src
 cmp_index_ref_load = 35;
 cmp_index_ref_load = 35;
-Fr_add(&expaux[1],&lvar[2],&circuitConstants[2]); // line circom 146
-Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[35]].signalStart + 0],&expaux[1]); // line circom 146
+Fr_add(&expaux[1],&lvar[2],&circuitConstants[2]); // line circom 147
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[35]].signalStart + 0],&expaux[1]); // line circom 147
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
-PFrElement aux_dest = &lvar[4];
+PFrElement aux_dest = &lvar[5];
 // load src
-Fr_add(&expaux[0],&lvar[4],&signalValues[mySignalStart + 91]); // line circom 147
+Fr_add(&expaux[0],&lvar[5],&signalValues[mySignalStart + 91]); // line circom 148
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -951,30 +957,30 @@ Fr_copy(aux_dest,&expaux[0]);
 PFrElement aux_dest = &signalValues[mySignalStart + 0];
 // load src
 // end load src
-Fr_copy(aux_dest,&lvar[4]);
+Fr_copy(aux_dest,&lvar[5]);
 }
 {
-PFrElement aux_dest = &lvar[5];
+PFrElement aux_dest = &lvar[6];
 // load src
 // end load src
 Fr_copy(aux_dest,&circuitConstants[2]);
 }
-Fr_lt(&expaux[0],&lvar[5],&circuitConstants[7]); // line circom 149
+Fr_lt(&expaux[0],&lvar[6],&circuitConstants[7]); // line circom 150
 while(Fr_isTrue(&expaux[0])){
 {
-PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 0)];
+PFrElement aux_dest = &signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 0)];
 // load src
 // end load src
-Fr_copy(aux_dest,&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[5])) + 12)]);
+Fr_copy(aux_dest,&signalValues[mySignalStart + ((1 * Fr_toInt(&lvar[6])) + 12)]);
 }
 {
-PFrElement aux_dest = &lvar[5];
+PFrElement aux_dest = &lvar[6];
 // load src
-Fr_add(&expaux[0],&lvar[5],&circuitConstants[2]); // line circom 149
+Fr_add(&expaux[0],&lvar[6],&circuitConstants[2]); // line circom 150
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[5],&circuitConstants[7]); // line circom 149
+Fr_lt(&expaux[0],&lvar[6],&circuitConstants[7]); // line circom 150
 }
 for (uint i = 0; i < 36; i++){
 uint index_subc = ctx->componentMemory[ctx_index].subcomponents[i];
