@@ -49,13 +49,13 @@ uint get_main_input_signal_start() {return 18;}
 
 uint get_main_input_signal_no() {return 18;}
 
-uint get_total_signal_no() {return 819;}
+uint get_total_signal_no() {return 844;}
 
-uint get_number_of_components() {return 149;}
+uint get_number_of_components() {return 155;}
 
 uint get_size_of_input_hashmap() {return 256;}
 
-uint get_size_of_witness() {return 619;}
+uint get_size_of_witness() {return 633;}
 
 uint get_size_of_constants() {return 26;}
 
@@ -957,13 +957,13 @@ ctx->componentMemory[coffset].signalStart = soffset;
 ctx->componentMemory[coffset].inputCounter = 18;
 ctx->componentMemory[coffset].componentName = componentName;
 ctx->componentMemory[coffset].idFather = componentFather;
-ctx->componentMemory[coffset].subcomponents = new uint[63]{0};
+ctx->componentMemory[coffset].subcomponents = new uint[66]{0};
 }
 
 void Step_9_run(uint ctx_index,Circom_CalcWit* ctx){
 FrElement* circuitConstants = ctx->circuitConstants;
 FrElement* signalValues = ctx->signalValues;
-FrElement expaux[5];
+FrElement expaux[6];
 FrElement lvar[12];
 u64 mySignalStart = ctx->componentMemory[ctx_index].signalStart;
 std::string myTemplateName = ctx->componentMemory[ctx_index].templateName;
@@ -978,8 +978,8 @@ uint index_multiple_eq;
 int cmp_index_ref_load = -1;
 {
 uint aux_create = 0;
-int aux_cmp_num = 52+ctx_index+1;
-uint csoffset = mySignalStart+380;
+int aux_cmp_num = 58+ctx_index+1;
+uint csoffset = mySignalStart+405;
 uint aux_dimensions[1] = {10};
 for (uint i = 0; i < 10; i++) {
 std::string new_cmp_name = "is_match_char"+ctx->generate_position_array(aux_dimensions, 1, i);
@@ -991,8 +991,8 @@ aux_cmp_num += 2;
 }
 {
 uint aux_create = 10;
-int aux_cmp_num = 72+ctx_index+1;
-uint csoffset = mySignalStart+440;
+int aux_cmp_num = 78+ctx_index+1;
+uint csoffset = mySignalStart+465;
 uint aux_dimensions[1] = {17};
 for (uint i = 0; i < 17; i++) {
 std::string new_cmp_name = "is_match_state"+ctx->generate_position_array(aux_dimensions, 1, i);
@@ -1004,73 +1004,73 @@ aux_cmp_num += 2;
 }
 {
 std::string new_cmp_name = "is_anum";
-IsAlphanumeric_8_create(mySignalStart+204,22+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[27] = 22+ctx_index+1;
+IsAlphanumeric_8_create(mySignalStart+229,28+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[27] = 28+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_slash";
-IsEqual_7_create(mySignalStart+542,106+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[28] = 106+ctx_index+1;
+IsEqual_7_create(mySignalStart+567,112+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[28] = 112+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_CR";
-IsEqual_7_create(mySignalStart+186,16+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[29] = 16+ctx_index+1;
+IsEqual_7_create(mySignalStart+211,22+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[29] = 22+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_SQ";
-IsEqual_7_create(mySignalStart+198,20+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[30] = 20+ctx_index+1;
+IsEqual_7_create(mySignalStart+223,26+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[30] = 26+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_backsl";
-IsEqual_7_create(mySignalStart+362,46+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[31] = 46+ctx_index+1;
+IsEqual_7_create(mySignalStart+387,52+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[31] = 52+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_star";
-IsEqual_7_create(mySignalStart+548,108+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[32] = 108+ctx_index+1;
+IsEqual_7_create(mySignalStart+573,114+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[32] = 114+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_DQ";
-IsEqual_7_create(mySignalStart+192,18+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[33] = 18+ctx_index+1;
+IsEqual_7_create(mySignalStart+217,24+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[33] = 24+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_bt";
-IsEqual_7_create(mySignalStart+368,48+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[34] = 48+ctx_index+1;
+IsEqual_7_create(mySignalStart+393,54+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[34] = 54+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eq_cmt";
-IsEqual_7_create(mySignalStart+162,8+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[35] = 8+ctx_index+1;
+IsEqual_7_create(mySignalStart+187,14+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[35] = 14+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eq_qut";
-IsEqual_7_create(mySignalStart+180,14+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[36] = 14+ctx_index+1;
+IsEqual_7_create(mySignalStart+205,20+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[36] = 20+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eq_mlcmt";
-IsEqual_7_create(mySignalStart+174,12+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[37] = 12+ctx_index+1;
+IsEqual_7_create(mySignalStart+199,18+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[37] = 18+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eq_dqt";
-IsEqual_7_create(mySignalStart+168,10+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[38] = 10+ctx_index+1;
+IsEqual_7_create(mySignalStart+193,16+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[38] = 16+ctx_index+1;
 }
 {
 std::string new_cmp_name = "eq_bkt";
-IsEqual_7_create(mySignalStart+156,6+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[39] = 6+ctx_index+1;
+IsEqual_7_create(mySignalStart+181,12+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[39] = 12+ctx_index+1;
 }
 {
 uint aux_create = 40;
-int aux_cmp_num = 114+ctx_index+1;
-uint csoffset = mySignalStart+566;
+int aux_cmp_num = 120+ctx_index+1;
+uint csoffset = mySignalStart+591;
 uint aux_dimensions[1] = {10};
 for (uint i = 0; i < 10; i++) {
 std::string new_cmp_name = "length_check"+ctx->generate_position_array(aux_dimensions, 1, i);
@@ -1082,68 +1082,83 @@ aux_cmp_num += 2;
 }
 {
 std::string new_cmp_name = "is_state_after_match";
-IsEqual_7_create(mySignalStart+560,112+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[50] = 112+ctx_index+1;
+IsEqual_7_create(mySignalStart+585,118+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[50] = 118+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_holding";
-IsEqual_7_create(mySignalStart+374,50+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[51] = 50+ctx_index+1;
+IsEqual_7_create(mySignalStart+399,56+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[51] = 56+ctx_index+1;
 }
 {
 std::string new_cmp_name = "is_state_accept";
-IsEqual_7_create(mySignalStart+554,110+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[52] = 110+ctx_index+1;
+IsEqual_7_create(mySignalStart+579,116+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[52] = 116+ctx_index+1;
 }
 {
 std::string new_cmp_name = "cmteol_st_0";
-IsEqual_7_create(mySignalStart+138,0+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_7_create(mySignalStart+145,0+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[53] = 0+ctx_index+1;
 }
 {
 std::string new_cmp_name = "cmteol_st_1";
-IsEqual_7_create(mySignalStart+144,2+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_7_create(mySignalStart+151,2+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[54] = 2+ctx_index+1;
 }
 {
 std::string new_cmp_name = "cmteol_st_2";
-IsEqual_7_create(mySignalStart+150,4+ctx_index+1,ctx,new_cmp_name,myId);
+IsEqual_7_create(mySignalStart+157,4+ctx_index+1,ctx,new_cmp_name,myId);
 mySubcomponents[55] = 4+ctx_index+1;
 }
 {
 std::string new_cmp_name = "sq_st_0";
-IsEqual_7_create(mySignalStart+800,142+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[56] = 142+ctx_index+1;
+IsEqual_7_create(mySignalStart+825,148+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[56] = 148+ctx_index+1;
 }
 {
 std::string new_cmp_name = "sq_st_1";
-IsEqual_7_create(mySignalStart+806,144+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[57] = 144+ctx_index+1;
+IsEqual_7_create(mySignalStart+831,150+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[57] = 150+ctx_index+1;
 }
 {
 std::string new_cmp_name = "sq_st_2";
-IsEqual_7_create(mySignalStart+812,146+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[58] = 146+ctx_index+1;
+IsEqual_7_create(mySignalStart+837,152+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[58] = 152+ctx_index+1;
 }
 {
 std::string new_cmp_name = "mlcmt_st_0";
-IsEqual_7_create(mySignalStart+776,134+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[59] = 134+ctx_index+1;
+IsEqual_7_create(mySignalStart+801,140+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[59] = 140+ctx_index+1;
 }
 {
 std::string new_cmp_name = "mlcmt_st_1";
-IsEqual_7_create(mySignalStart+782,136+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[60] = 136+ctx_index+1;
+IsEqual_7_create(mySignalStart+807,142+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[60] = 142+ctx_index+1;
 }
 {
 std::string new_cmp_name = "mlcmt_st_2";
-IsEqual_7_create(mySignalStart+788,138+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[61] = 138+ctx_index+1;
+IsEqual_7_create(mySignalStart+813,144+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[61] = 144+ctx_index+1;
 }
 {
 std::string new_cmp_name = "mlcmt_st_3";
-IsEqual_7_create(mySignalStart+794,140+ctx_index+1,ctx,new_cmp_name,myId);
-mySubcomponents[62] = 140+ctx_index+1;
+IsEqual_7_create(mySignalStart+819,146+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[62] = 146+ctx_index+1;
+}
+{
+std::string new_cmp_name = "dq_st_0";
+IsEqual_7_create(mySignalStart+163,6+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[63] = 6+ctx_index+1;
+}
+{
+std::string new_cmp_name = "dq_st_1";
+IsEqual_7_create(mySignalStart+169,8+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[64] = 8+ctx_index+1;
+}
+{
+std::string new_cmp_name = "dq_st_2";
+IsEqual_7_create(mySignalStart+175,10+ctx_index+1,ctx,new_cmp_name,myId);
+mySubcomponents[65] = 10+ctx_index+1;
 }
 {
 PFrElement aux_dest = &lvar[0];
@@ -1958,10 +1973,12 @@ Fr_copy(aux_dest,&circuitConstants[2]);
 }
 Fr_lt(&expaux[0],&lvar[11],&circuitConstants[0]); // line circom 171
 while(Fr_isTrue(&expaux[0])){
-Fr_neq(&expaux[2],&lvar[11],&circuitConstants[19]); // line circom 172
-Fr_neq(&expaux[3],&lvar[11],&circuitConstants[21]); // line circom 172
+Fr_neq(&expaux[3],&lvar[11],&circuitConstants[19]); // line circom 172
+Fr_neq(&expaux[4],&lvar[11],&circuitConstants[21]); // line circom 172
+Fr_land(&expaux[2],&expaux[3],&expaux[4]); // line circom 172
+Fr_neq(&expaux[3],&lvar[11],&circuitConstants[22]); // line circom 172
 Fr_land(&expaux[1],&expaux[2],&expaux[3]); // line circom 172
-Fr_neq(&expaux[2],&lvar[11],&circuitConstants[22]); // line circom 172
+Fr_neq(&expaux[2],&lvar[11],&circuitConstants[23]); // line circom 172
 Fr_land(&expaux[0],&expaux[1],&expaux[2]); // line circom 172
 if(Fr_isTrue(&expaux[0])){
 {
@@ -2500,7 +2517,158 @@ Fr_add(&expaux[0],&expaux[1],&signalValues[mySignalStart + 137]); // line circom
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-for (uint i = 0; i < 63; i++){
+{
+uint cmp_index_ref = 63;
+{
+PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 1];
+// load src
+// end load src
+Fr_copy(aux_dest,&signalValues[mySignalStart + 31]);
+}
+// no need to run sub component
+ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
+assert(ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter > 0);
+}
+{
+uint cmp_index_ref = 63;
+{
+PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
+// load src
+// end load src
+Fr_copy(aux_dest,&circuitConstants[1]);
+}
+// need to run sub component
+ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
+assert(!(ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
+IsEqual_7_run(mySubcomponents[cmp_index_ref],ctx);
+}
+{
+uint cmp_index_ref = 64;
+{
+PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 1];
+// load src
+// end load src
+Fr_copy(aux_dest,&signalValues[mySignalStart + 31]);
+}
+// no need to run sub component
+ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
+assert(ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter > 0);
+}
+{
+uint cmp_index_ref = 64;
+{
+PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
+// load src
+// end load src
+Fr_copy(aux_dest,&circuitConstants[2]);
+}
+// need to run sub component
+ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
+assert(!(ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
+IsEqual_7_run(mySubcomponents[cmp_index_ref],ctx);
+}
+{
+uint cmp_index_ref = 65;
+{
+PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 1];
+// load src
+// end load src
+Fr_copy(aux_dest,&signalValues[mySignalStart + 31]);
+}
+// no need to run sub component
+ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
+assert(ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter > 0);
+}
+{
+uint cmp_index_ref = 65;
+{
+PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
+// load src
+// end load src
+Fr_copy(aux_dest,&circuitConstants[20]);
+}
+// need to run sub component
+ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter -= 1;
+assert(!(ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
+IsEqual_7_run(mySubcomponents[cmp_index_ref],ctx);
+}
+{
+PFrElement aux_dest = &signalValues[mySignalStart + 138];
+// load src
+cmp_index_ref_load = 63;
+cmp_index_ref_load = 63;
+cmp_index_ref_load = 33;
+cmp_index_ref_load = 33;
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[63]].signalStart + 0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[33]].signalStart + 0]); // line circom 252
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+{
+PFrElement aux_dest = &signalValues[mySignalStart + 139];
+// load src
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 138],&circuitConstants[2]); // line circom 253
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+{
+PFrElement aux_dest = &signalValues[mySignalStart + 140];
+// load src
+cmp_index_ref_load = 64;
+cmp_index_ref_load = 64;
+cmp_index_ref_load = 31;
+cmp_index_ref_load = 31;
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[64]].signalStart + 0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[31]].signalStart + 0]); // line circom 255
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+{
+PFrElement aux_dest = &signalValues[mySignalStart + 141];
+// load src
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 140],&circuitConstants[20]); // line circom 256
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+{
+PFrElement aux_dest = &signalValues[mySignalStart + 142];
+// load src
+cmp_index_ref_load = 65;
+cmp_index_ref_load = 65;
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[65]].signalStart + 0],&circuitConstants[2]); // line circom 258
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+{
+PFrElement aux_dest = &signalValues[mySignalStart + 143];
+// load src
+cmp_index_ref_load = 64;
+cmp_index_ref_load = 64;
+cmp_index_ref_load = 31;
+cmp_index_ref_load = 31;
+Fr_sub(&expaux[1],&circuitConstants[2],&ctx->signalValues[ctx->componentMemory[mySubcomponents[31]].signalStart + 0]); // line circom 260
+Fr_mul(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[64]].signalStart + 0],&expaux[1]); // line circom 260
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+{
+PFrElement aux_dest = &signalValues[mySignalStart + 144];
+// load src
+cmp_index_ref_load = 33;
+cmp_index_ref_load = 33;
+Fr_sub(&expaux[1],&circuitConstants[2],&ctx->signalValues[ctx->componentMemory[mySubcomponents[33]].signalStart + 0]); // line circom 261
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 143],&expaux[1]); // line circom 261
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+{
+PFrElement aux_dest = &signalValues[mySignalStart + 14];
+// load src
+Fr_add(&expaux[2],&signalValues[mySignalStart + 139],&signalValues[mySignalStart + 141]); // line circom 264
+Fr_add(&expaux[1],&expaux[2],&signalValues[mySignalStart + 142]); // line circom 264
+Fr_add(&expaux[0],&expaux[1],&signalValues[mySignalStart + 144]); // line circom 264
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+for (uint i = 0; i < 66; i++){
 uint index_subc = ctx->componentMemory[ctx_index].subcomponents[i];
 if (index_subc != 0)release_memory_component(ctx,index_subc);
 }
