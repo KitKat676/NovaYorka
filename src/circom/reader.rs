@@ -17,36 +17,21 @@ use ff::PrimeField;
 use nova_snark::traits::Group;
 
 use libc;
-use std::ffi::{CString};
+//use std::ffi::{CString};
 use std::os::raw::c_char;
+use std::ffi::{CStr, CString};
+
+use crate::circom::reader::libc::c_ulonglong;
+use std::slice::from_raw_parts;
 
 extern "C" {
-    fn analyzer_main(witness_in: *const libc::c_char, witness_out: *const libc::c_char) -> i32;
+    fn analyzer_main(json_in: *const libc::c_char,
+                     witness_out_ptr: *mut *mut libc::c_char,
+                     witness_out_len: *mut c_ulonglong,) -> i32;
+
+    fn free_analyzer_output(ptr: *mut libc::c_char);
 }
 
-
-/*pub fn generate_witness_from_bin<Fr: PrimeField>(
-    witness_bin: &Path,
-    witness_input_json: &String,
-    witness_output: &Path,
-) -> Vec<Fr> {
-    let root = current_dir().unwrap();
-    let witness_generator_input = root.join("circom_input.json");
-    fs::write(&witness_generator_input, witness_input_json).unwrap();
-
-    let output = Command::new(witness_bin)
-        .arg(&witness_generator_input)
-        .arg(witness_output)
-        .output()
-        .expect("failed to execute process");
-    if output.stdout.len() > 0 || output.stderr.len() > 0 {
-        print!("stdout: {}", str::from_utf8(&output.stdout).unwrap());
-        print!("stderr: {}", str::from_utf8(&output.stderr).unwrap());
-    }
-    let _ = fs::remove_file(witness_generator_input);
-    load_witness_from_file(witness_output)
-}
-*/
 
 pub fn generate_witness_from_bin<Fr: PrimeField>(
     witness_bin: &Path,
@@ -54,104 +39,50 @@ pub fn generate_witness_from_bin<Fr: PrimeField>(
     witness_output: &Path,
 ) -> Vec<Fr> {
     let root = current_dir().unwrap();
-    //let witness_generator_input = root.join("circom_input.json");
-    //fs::write(&witness_generator_input, witness_input_json).unwrap();
-
-    //let arg0 = CString::new(witness_bin.to_str().unwrap()).unwrap();
-    //let arg1 = CString::new(witness_generator_input.to_str().unwrap()).unwrap();
+    
+    
     let wtns_file = CString::new(
         witness_output.to_str().expect("Invalid UTF-8 in witness_output path")
     ).expect("Failed to create CString from witness_output");
 
-    //println!("Here is the witness input json: {}", witness_input_json);
+    
 
     let json_str = CString::new(witness_input_json.as_str())
         .expect("Failed to create CString from witness_input_json");
 
-    //let argv = vec![arg0.as_ptr(), arg1.as_ptr(), wtns_file.as_ptr()];
-    //let argc = argv.len() as i32;
+    
+    let mut witness_output_ptr: *mut c_char = std::ptr::null_mut();
+    let mut witness_output_len: c_ulonglong = 0;
 
-    let exit_code = unsafe { analyzer_main(json_str.as_ptr(), wtns_file.as_ptr())};
+    let exit_code = unsafe { analyzer_main(json_str.as_ptr(), 
+                                           &mut witness_output_ptr,
+                                           &mut witness_output_len,)};
     if exit_code != 0 {
         panic!("analyzer_main returned non-zero exit code: {}", exit_code);
     }
+    
+    let witness_binary_data: Vec<u8> = unsafe{
+        if witness_output_ptr.is_null() || witness_output_len == 0{
+            eprintln!("analyzer_main returned null pointer or zero length for witness data");
+            Vec::new()
+        }
+        else{
+            let slice = from_raw_parts(witness_output_ptr as *const u8,
+                                              witness_output_len as usize);
+            let vec_data = slice.to_vec();
 
-    //println!("Exited witness generation\n");
-    //let _ = fs::remove_file(witness_generator_input);
-    load_witness_from_file(witness_output)
-}
+            free_analyzer_output(witness_output_ptr);
 
-#[cfg(not(target_family = "wasm"))]
-pub fn generate_witness_from_wasm<Fr: PrimeField>(
-    witness_wasm: &FileLocation,
-    witness_input_json: &String,
-    witness_output: &Path,
-) -> Vec<Fr> {
-    let witness_wasm = match witness_wasm {
-        FileLocation::PathBuf(path) => path,
-        FileLocation::URL(_) => panic!("unreachable"),
+            vec_data
+        }
     };
 
-    let root = current_dir().unwrap();
-    let witness_generator_input = root.join("circom_input.json");
-    fs::write(&witness_generator_input, witness_input_json).unwrap();
-
-    let witness_js = Path::new(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/src/circom/wasm_deps/generate_witness.js"
-    ));
-    let output = Command::new("node")
-        .arg(witness_js)
-        .arg(witness_wasm)
-        .arg(&witness_generator_input)
-        .arg(witness_output)
-        .output()
-        .expect("failed to execute process");
-    if output.stdout.len() > 0 || output.stderr.len() > 0 {
-        print!("stdout: {}", str::from_utf8(&output.stdout).unwrap());
-        print!("stderr: {}", str::from_utf8(&output.stderr).unwrap());
-    }
-    let _ = fs::remove_file(witness_generator_input);
-    load_witness_from_file(witness_output)
+    //Change the line below to call load_witness_from_array
+    //load_witness_from_file(witness_output)
+    load_witness_from_array::<Fr>(witness_binary_data).unwrap()
 }
 
 /// load witness file by filename with autodetect encoding (bin or json).
-pub fn load_witness_from_file<Fr: PrimeField>(filename: &Path) -> Vec<Fr> {
-    if filename.ends_with("json") {
-        load_witness_from_json_file::<Fr>(filename)
-    } else {
-        load_witness_from_bin_file::<Fr>(filename)
-    }
-}
-
-/// load witness from json file by filename
-pub fn load_witness_from_json_file<Fr: PrimeField>(filename: &Path) -> Vec<Fr> {
-    let reader = OpenOptions::new()
-        .read(true)
-        .open(filename)
-        .expect("unable to open.");
-    load_witness_from_json::<Fr, BufReader<File>>(BufReader::new(reader))
-}
-
-/// load witness from json by a reader
-fn load_witness_from_json<Fr: PrimeField, R: Read>(reader: R) -> Vec<Fr> {
-    let witness: Vec<String> = serde_json::from_reader(reader).expect("unable to read.");
-    witness
-        .into_iter()
-        .map(|x| Fr::from_str_vartime(&x).unwrap())
-        .collect::<Vec<Fr>>()
-}
-
-/// load witness from bin file by filename
-pub fn load_witness_from_bin_file<Fr: PrimeField>(filename: &Path) -> Vec<Fr> {
-    let reader = OpenOptions::new()
-        .read(true)
-        .open(filename)
-        .expect("unable to open.");
-    load_witness_from_bin_reader::<Fr, BufReader<File>>(BufReader::new(reader))
-        .expect("read witness failed")
-}
-
 /// load witness from u8 array
 pub fn load_witness_from_array<Fr: PrimeField>(buffer: Vec<u8>) -> Result<Vec<Fr>, anyhow::Error> {
     load_witness_from_bin_reader::<Fr, _>(buffer.as_slice())

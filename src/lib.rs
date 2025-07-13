@@ -18,12 +18,6 @@ use num_traits::Num;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-#[cfg(not(target_family = "wasm"))]
-use crate::circom::reader::generate_witness_from_wasm;
-
-#[cfg(target_family = "wasm")]
-use crate::circom::wasm::generate_witness_from_wasm;
-
 pub mod circom;
 
 pub type F<G> = <G as Group>::Scalar;
@@ -89,13 +83,6 @@ fn compute_witness<G1, G2>(
 
     //println!("Step input json is {}", input_json);
 
-    if is_wasm {
-        generate_witness_from_wasm::<F<G1>>(
-            &witness_generator_file,
-            &input_json,
-            &witness_generator_output,
-        )
-    } else {
         let witness_generator_file = match &witness_generator_file {
             FileLocation::PathBuf(path) => path,
             FileLocation::URL(_) => panic!("unreachable"),
@@ -105,7 +92,6 @@ fn compute_witness<G1, G2>(
             &input_json,
             &witness_generator_output,
         )
-    }
 }
 
 #[cfg(target_family = "wasm")]
