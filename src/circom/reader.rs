@@ -19,66 +19,56 @@ use nova_snark::traits::Group;
 use libc;
 use std::ffi::{CString};
 use std::os::raw::c_char;
+use std::os::raw::c_ulonglong;
+use std::slice;
 
 extern "C" {
-    fn analyzer_main(witness_in: *const libc::c_char, witness_out: *const libc::c_char) -> i32;
+    //fn analyzer_main(witness_in: *const libc::c_char, witness_out: *const libc::c_char) -> i32;
+    fn free_analyzer_output(ptr: *mut libc::c_char);
+    fn analyzer_main(json_str: *const libc::c_char, 
+                     witness_out_ptr: *mut *mut libc::c_char,
+                     witness_out_len: *mut c_ulonglong) -> i32;
 }
 
-
-/*pub fn generate_witness_from_bin<Fr: PrimeField>(
-    witness_bin: &Path,
-    witness_input_json: &String,
-    witness_output: &Path,
-) -> Vec<Fr> {
-    let root = current_dir().unwrap();
-    let witness_generator_input = root.join("circom_input.json");
-    fs::write(&witness_generator_input, witness_input_json).unwrap();
-
-    let output = Command::new(witness_bin)
-        .arg(&witness_generator_input)
-        .arg(witness_output)
-        .output()
-        .expect("failed to execute process");
-    if output.stdout.len() > 0 || output.stderr.len() > 0 {
-        print!("stdout: {}", str::from_utf8(&output.stdout).unwrap());
-        print!("stderr: {}", str::from_utf8(&output.stderr).unwrap());
-    }
-    let _ = fs::remove_file(witness_generator_input);
-    load_witness_from_file(witness_output)
-}
-*/
 
 pub fn generate_witness_from_bin<Fr: PrimeField>(
     witness_bin: &Path,
     witness_input_json: &String,
     witness_output: &Path,
 ) -> Vec<Fr> {
-    let root = current_dir().unwrap();
-    //let witness_generator_input = root.join("circom_input.json");
-    //fs::write(&witness_generator_input, witness_input_json).unwrap();
-
-    //let arg0 = CString::new(witness_bin.to_str().unwrap()).unwrap();
-    //let arg1 = CString::new(witness_generator_input.to_str().unwrap()).unwrap();
-    let wtns_file = CString::new(
-        witness_output.to_str().expect("Invalid UTF-8 in witness_output path")
-    ).expect("Failed to create CString from witness_output");
-
-    //println!("Here is the witness input json: {}", witness_input_json);
 
     let json_str = CString::new(witness_input_json.as_str())
         .expect("Failed to create CString from witness_input_json");
 
-    //let argv = vec![arg0.as_ptr(), arg1.as_ptr(), wtns_file.as_ptr()];
-    //let argc = argv.len() as i32;
+    let mut witness_output_ptr: *mut c_char = std::ptr::null_mut();
+    let mut witness_output_len: c_ulonglong = 0;
 
-    let exit_code = unsafe { analyzer_main(json_str.as_ptr(), wtns_file.as_ptr())};
-    if exit_code != 0 {
-        panic!("analyzer_main returned non-zero exit code: {}", exit_code);
-    }
+    let exit_code = unsafe {
+        analyzer_main(
+            json_str.as_ptr(),
+            &mut witness_output_ptr,
+            &mut witness_output_len,
+        )
+    };
 
-    //println!("Exited witness generation\n");
-    //let _ = fs::remove_file(witness_generator_input);
-    load_witness_from_file(witness_output)
+    let witness_binary_data: Vec<u8> = unsafe {
+        if witness_output_ptr.is_null() || witness_output_len == 0 {
+            panic!("analyzer_main returned null pointer or zero length for witness data.");
+            //Vec::new() // Return empty vector or handle error
+        } else {
+            
+            let slice = slice::from_raw_parts(witness_output_ptr as *const u8, witness_output_len as usize);
+            
+            let vec_data = slice.to_vec();
+
+            // IMPORTANT: Free the memory allocated by C++
+            free_analyzer_output(witness_output_ptr);
+
+            vec_data
+        }
+    };
+    load_witness_from_array(witness_binary_data).expect("Couldn't parse witness data")
+    //load_witness_from_file(witness_output)
 }
 
 #[cfg(not(target_family = "wasm"))]
