@@ -430,6 +430,36 @@ std::vector<unsigned char> writeBinWitnessToMemory(Circom_CalcWit *ctx) {
     return buffer; // Return the populated byte array
 }
 
+/**
+ * @brief Writes the contents of a std::vector<unsigned char> to a specified file.
+ *
+ * @param wtns The std::vector<unsigned char> containing the bytes to write.
+ * @param file_name The path and name of the file to write to.
+ * @return true if the write operation was successful, false otherwise.
+ */
+bool writeVectorToFile(const std::vector<unsigned char>& wtns, const std::string& file_name) {
+    FILE *write_ptr;
+    write_ptr = fopen(file_name.c_str(), "wb"); // Open file in binary write mode
+
+    if (write_ptr == NULL) {
+        std::cerr << "Error: Could not open file " << file_name << " for writing." << std::endl;
+        return false;
+    }
+
+    // Write the entire contents of the vector to the file
+    size_t bytes_written = fwrite(wtns.data(), 1, wtns.size(), write_ptr);
+
+    fclose(write_ptr); // Close the file
+
+    if (bytes_written != wtns.size()) {
+        std::cerr << "Error: Mismatch in bytes written. Expected " << wtns.size()
+                  << ", but wrote " << bytes_written << " to " << file_name << std::endl;
+        return false;
+    }
+
+    return true; // Successfully wrote all bytes
+}
+
 extern "C" {
 int analyzer_main (char* json_str, char* wtns_file) {
   
@@ -447,20 +477,11 @@ int analyzer_main (char* json_str, char* wtns_file) {
      std::cerr << "Not all inputs have been set. Only " << get_main_input_signal_no()-ctx->getRemaingInputsToBeSet() << " out of " << get_main_input_signal_no() << std::endl;
      assert(false);
    }
-   /*
-     for (uint i = 0; i<get_size_of_witness(); i++){
-     FrElement x;
-     ctx->getWitness(i, &x);
-     std::cout << i << ": " << Fr_element2str(&x) << std::endl;
-     }
-   */
-  
-   //auto t_mid = std::chrono::high_resolution_clock::now();
-   //std::cout << std::chrono::duration<double, std::milli>(t_mid-t_start).count()<<std::endl;
 
    std::vector<unsigned char> wtns = writeBinWitnessToMemory(ctx);
 
-   writeBinWitness(ctx,std::string (wtns_file));
+   //writeBinWitness(ctx,std::string (wtns_file));
+   writeVectorToFile(wtns, std::string(wtns_file));
   
    //auto t_end = std::chrono::high_resolution_clock::now();
    //std::cout << std::chrono::duration<double, std::milli>(t_end-t_mid).count()<<std::endl;
