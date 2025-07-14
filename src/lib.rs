@@ -244,7 +244,7 @@ pub fn create_recursive_circuit<G1, G2>(
         );
         assert!(res.is_ok());
     }
-    fs::remove_file(witness_generator_output)?;
+    //fs::remove_file(witness_generator_output)?;
     let fin_res = (current_public_output, recursive_snark, pp);
     Ok(fin_res)
 }
