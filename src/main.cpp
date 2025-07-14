@@ -458,7 +458,7 @@ int analyzer_main (char* json_str, char* wtns_file) {
    //auto t_mid = std::chrono::high_resolution_clock::now();
    //std::cout << std::chrono::duration<double, std::milli>(t_mid-t_start).count()<<std::endl;
 
-   vector<unsigned char> wtns = writeBinWitnessToMemory(ctx);
+   std::vector<unsigned char> wtns = writeBinWitnessToMemory(ctx);
 
    writeBinWitness(ctx,std::string (wtns_file));
   
