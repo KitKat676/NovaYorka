@@ -338,6 +338,98 @@ void writeBinWitness(Circom_CalcWit *ctx, std::string wtnsFileName) {
     fclose(write_ptr);
 }
 
+/**
+ * @brief Helper function to write arbitrary data to a std::vector<unsigned char>.
+ * This mimics the behavior of fwrite for an in-memory buffer.
+ *
+ * @param ptr A pointer to the data to be written.
+ * @param size The size of each item to be written (in bytes).
+ * @param count The number of items to be written.
+ * @param buffer The std::vector<unsigned char> to which the data will be appended.
+ */
+void write_to_vector(const void* ptr, size_t size, size_t count, std::vector<unsigned char>& buffer) {
+    // Cast the void pointer to a const unsigned char pointer to iterate over bytes
+    const unsigned char* bytes = static_cast<const unsigned char*>(ptr);
+    // Calculate the total number of bytes to append
+    size_t total_bytes = size * count;
+    // Append the bytes from the source pointer to the end of the vector
+    buffer.insert(buffer.end(), bytes, bytes + total_bytes);
+}
+
+/**
+ * @brief Writes binary witness data to a byte array in memory.
+ * This function is a modified version of the original 'writeBinWitness'
+ * that outputs to a std::vector<unsigned char> instead of a file.
+ *
+ * @param ctx A pointer to the Circom_CalcWit context, used to retrieve witness values.
+ * @return A std::vector<unsigned char> containing the binary witness data.
+ */
+std::vector<unsigned char> writeBinWitnessToMemory(Circom_CalcWit *ctx) {
+    // Initialize an empty vector that will store the binary data.
+    // It will grow dynamically as data is written to it.
+    std::vector<unsigned char> buffer;
+
+    // Original: fwrite("wtns", 4, 1, write_ptr);
+    write_to_vector("wtns", 4, 1, buffer);
+
+    // Original: u32 version = 2; fwrite(&version, 4, 1, write_ptr);
+    u32 version = 2;
+    write_to_vector(&version, 4, 1, buffer);
+
+    // Original: u32 nSections = 2; fwrite(&nSections, 4, 1, write_ptr);
+    u32 nSections = 2;
+    write_to_vector(&nSections, 4, 1, buffer);
+
+    // --- Header Section (ID 1) ---
+    // Original: u32 idSection1 = 1; fwrite(&idSection1, 4, 1, write_ptr);
+    u32 idSection1 = 1;
+    write_to_vector(&idSection1, 4, 1, buffer);
+
+    // Calculate n8: number of bytes per field element limb (Fr_N64 * 8 bytes/limb)
+    // Assuming Fr_N64 is the number of 64-bit limbs in FrElement.longVal,
+    // and each limb is 8 bytes.
+    u32 n8 = Fr_N64 * 8; // Total bytes for a full FrElement (e.g., 4 * 8 = 32 bytes)
+
+    // Original: u64 idSection1length = 8 + n8; fwrite(&idSection1length, 8, 1, write_ptr);
+    u64 idSection1length = 8 + n8;
+    write_to_vector(&idSection1length, 8, 1, buffer);
+
+    // Original: fwrite(&n8, 4, 1, write_ptr);
+    write_to_vector(&n8, 4, 1, buffer);
+
+    // Original: fwrite(Fr_q.longVal, Fr_N64*8, 1, write_ptr);
+    // Ensure Fr_q is properly initialized before this call in your actual application.
+    write_to_vector(Fr_q.longVal, Fr_N64 * 8, 1, buffer);
+
+    // Get the total number of witness variables
+    uint Nwtns = get_size_of_witness();
+
+    // Original: u32 nVars = (u32)Nwtns; fwrite(&nVars, 4, 1, write_ptr);
+    u32 nVars = (u32)Nwtns;
+    write_to_vector(&nVars, 4, 1, buffer);
+
+    // --- Data Section (ID 2) ---
+    // Original: u32 idSection2 = 2; fwrite(&idSection2, 4, 1, write_ptr);
+    u32 idSection2 = 2;
+    write_to_vector(&idSection2, 4, 1, buffer);
+
+    // Original: u64 idSection2length = (u64)n8*(u64)Nwtns; fwrite(&idSection2length, 8, 1, write_ptr);
+    u64 idSection2length = (u64)n8 * (u64)Nwtns;
+    write_to_vector(&idSection2length, 8, 1, buffer);
+
+    FrElement v; // Temporary variable to hold each witness value
+
+    // Loop through all witness variables and write their values
+    for (int i = 0; i < Nwtns; i++) {
+        ctx->getWitness(i, &v);        // Get the witness value
+        Fr_toLongNormal(&v, &v);       // Normalize the witness value
+        // Original: fwrite(v.longVal, Fr_N64*8, 1, write_ptr);
+        write_to_vector(v.longVal, Fr_N64 * 8, 1, buffer); // Write the normalized value (n8 bytes)
+    }
+
+    return buffer; // Return the populated byte array
+}
+
 extern "C" {
 int analyzer_main (char* json_str, char* wtns_file) {
   
