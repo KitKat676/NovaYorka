@@ -50,6 +50,7 @@ pub fn generate_witness_from_bin<Fr: PrimeField>(
     let json_str = CString::new(witness_input_json.as_str())
         .expect("Failed to create CString from witness_input_json");
 
+    println!("{:?}", json_str);
     
     let mut witness_output_ptr: *mut c_char = std::ptr::null_mut();
     let mut witness_output_len: c_ulonglong = 0;
@@ -57,6 +58,7 @@ pub fn generate_witness_from_bin<Fr: PrimeField>(
     let exit_code = unsafe { analyzer_main(json_str.as_ptr(), 
                                            &mut witness_output_ptr,
                                            &mut witness_output_len,)};
+    println!("the exit code is {:?}", exit_code);
     if exit_code != 0 {
         panic!("analyzer_main returned non-zero exit code: {}", exit_code);
     }
