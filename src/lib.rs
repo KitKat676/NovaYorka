@@ -162,6 +162,7 @@ pub fn create_recursive_circuit<G1, G2>(
     private_inputs: Vec<HashMap<String, Value>>,
     start_public_input: Vec<F<G1>>,
     //pp: &PublicParams<G1, G2, C1<G1>, C2<G2>>,
+    keyword: &str,
 ) -> Result<(Vec<<G1 as Group>::Scalar>,RecursiveSNARK<G1, G2, C1<G1>, C2<G2>>,PublicParams<G1, G2, C1<G1>, C2<G2>>), std::io::Error>
     where
         G1: Group<Base = <G2 as Group>::Scalar>,
@@ -229,7 +230,7 @@ pub fn create_recursive_circuit<G1, G2>(
 
         current_public_output = circuit.get_public_outputs();
         //println!("The generated public output after iteration {:?} is {:?}", i, current_public_output);
-        println!("The state after iteration {:?} is {:?}", i, current_public_output[0]);
+        println!("The state for {:?} after iteration {:?} is {:?}", keyword, i, current_public_output[0]);
         current_public_input = current_public_output
             .iter()
             .map(|&x| format!("{:?}", x).strip_prefix("0x").unwrap().to_string())
