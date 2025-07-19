@@ -181,7 +181,8 @@ pub fn create_recursive_circuit<G1, G2>(
     println!("Creating public parameters based on R1CS ");
     let start = Instant::now();
     let pp: PublicParams<G1, G2, _, _> = create_public_params(r1cs.clone());
-    println!("PublicParams creation took {:?}", start.elapsed());
+    let pub_time = start.elapsed();
+    //println!("PublicParams creation took {:?}", start.elapsed());
 
     let witness_generator_output = root.join("circom_witness.wtns");
 
@@ -247,6 +248,7 @@ pub fn create_recursive_circuit<G1, G2>(
     }
     //fs::remove_file(witness_generator_output)?;
     let fin_res = (current_public_output, recursive_snark, pp);
+    println!("PublicParams creation took {:?}", pub_time);
     Ok(fin_res)
 }
 
