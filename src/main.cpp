@@ -491,16 +491,17 @@ void free_analyzer_output(char *ptr) { free(ptr); }
 int analyzer_main(char* json_str, char** witness_out_ptr, u64* witness_out_len) {
   // auto t_start = std::chrono::high_resolution_clock::now();
 
-  // Use static variables to avoid repeated allocation/deallocation
+  // Use static circuit to avoid repeated R1CS loading, but create fresh context each time
   static Circom_Circuit *circuit = nullptr;
-  static Circom_CalcWit *ctx = nullptr;
   
-  // Initialize circuit and context only once
+  // Initialize circuit only once (the expensive part)
   if (circuit == nullptr) {
     std::string datfile = "analyzer_cpp/analyzer.dat";
     circuit = loadCircuit(datfile);
-    ctx = new Circom_CalcWit(circuit);
   }
+
+  // Create a fresh context for each call to avoid state pollution
+  Circom_CalcWit *ctx = new Circom_CalcWit(circuit);
 
   // printf("About to load Json\n");
   loadJson(ctx, std::string(json_str));
@@ -524,6 +525,9 @@ int analyzer_main(char* json_str, char** witness_out_ptr, u64* witness_out_len) 
   memcpy(buffer, wtns.data(), total_buffer_size);
   *witness_out_ptr = buffer;
   *witness_out_len = total_buffer_size;
+
+  // Clean up the context after each use, but keep the circuit
+  delete ctx;
 
   return 0;
 }
