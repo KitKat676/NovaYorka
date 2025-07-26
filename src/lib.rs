@@ -2,7 +2,7 @@ use std::{
     collections::HashMap,
     env::current_dir,
     fs,
-    path::{Path, PathBuf},
+    path::PathBuf,
 };
 use std::time::Instant;
 
@@ -95,8 +95,6 @@ struct CircomInput {
 fn compute_witness<G1, G2>(
     current_public_input: Vec<String>,
     private_input: HashMap<String, Value>,
-    _witness_generator_file: FileLocation,
-    _witness_generator_output: &Path,
 ) -> Vec<<G1 as Group>::Scalar>
     where
         G1: Group<Base = <G2 as Group>::Scalar>,
@@ -121,12 +119,10 @@ fn compute_witness<G1, G2>(
 }
 
 pub fn create_recursive_circuit<G1, G2>(
-    witness_generator_file: FileLocation,
     //r1cs: R1CS<F<G1>>,
     private_inputs: Vec<HashMap<String, Value>>,
     start_public_input: Vec<F<G1>>,
     //pp: &PublicParams<G1, G2, C1<G1>, C2<G2>>,
-    keyword: &str,
 ) -> Result<(Vec<<G1 as Group>::Scalar>,RecursiveSNARK<G1, G2, C1<G1>, C2<G2>>,PublicParams<G1, G2, C1<G1>, C2<G2>>), std::io::Error>
     where
         G1: Group<Base = <G2 as Group>::Scalar>,
@@ -149,8 +145,6 @@ pub fn create_recursive_circuit<G1, G2>(
     let pub_time = start.elapsed();
     //println!("PublicParams creation took {:?}", start.elapsed());
 
-    let witness_generator_output = root.join("circom_witness.wtns");
-
     let iteration_count = private_inputs.len();
 
     let start_public_input_hex = start_public_input
@@ -162,8 +156,6 @@ pub fn create_recursive_circuit<G1, G2>(
     let witness_0 = compute_witness::<G1, G2>(
         current_public_input.clone(),
         private_inputs[0].clone(),
-        witness_generator_file.clone(),
-        &witness_generator_output,
     );
 
     // Create a single circuit instance that will be reused throughout
@@ -196,8 +188,6 @@ pub fn create_recursive_circuit<G1, G2>(
         let witness = compute_witness::<G1, G2>(
             current_public_input.clone(),
             private_inputs[i].clone(),
-            witness_generator_file.clone(),
-            &witness_generator_output,
         );
 
         // Reuse the circuit instance, only updating the witness
@@ -241,7 +231,6 @@ pub fn create_recursive_circuit<G1, G2>(
 pub fn continue_recursive_circuit<G1, G2>(
     recursive_snark: &mut RecursiveSNARK<G1, G2, C1<G1>, C2<G2>>,
     last_zi: Vec<F<G1>>,
-    witness_generator_file: FileLocation,
     r1cs: R1CS<F<G1>>,
     private_inputs: Vec<HashMap<String, Value>>,
     start_public_input: Vec<F<G1>>,
@@ -251,9 +240,6 @@ pub fn continue_recursive_circuit<G1, G2>(
         G1: Group<Base = <G2 as Group>::Scalar>,
         G2: Group<Base = <G1 as Group>::Scalar>,
 {
-    let root = current_dir().unwrap();
-    let witness_generator_output = root.join("circom_witness.wtns");
-
     let iteration_count = private_inputs.len();
 
     let mut current_public_input = last_zi
@@ -274,8 +260,6 @@ pub fn continue_recursive_circuit<G1, G2>(
         let witness = compute_witness::<G1, G2>(
             current_public_input.clone(),
             private_inputs[i].clone(),
-            witness_generator_file.clone(),
-            &witness_generator_output,
         );
 
         // Reuse the circuit instance, only updating the witness
@@ -297,8 +281,6 @@ pub fn continue_recursive_circuit<G1, G2>(
 
         assert!(res.is_ok());
     }
-
-    fs::remove_file(witness_generator_output)?;
 
     Ok(())
 }
