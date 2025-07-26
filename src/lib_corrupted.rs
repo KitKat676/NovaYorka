@@ -6,7 +6,24 @@ use std::{
 };
 use std::time::Instant;
 
-use crate::circom::reader::{generate_witness_from_bin, load_r1cs};
+use crate::circom::reader    // Pre-allocate a single circuit instance to reuse throughout the loop
+    let mut reusable_circuit = CircomCircuit {
+        r1cs,  // Move the R1CS instead of cloning
+        witness: None,
+    };
+    
+    for i in 0..iteration_count {
+        let witness = compute_witness::<G1, G2>(
+            current_public_input.clone(),
+            private_inputs[i].clone(),
+            witness_generator_file.clone(),
+            &witness_generator_output,
+        );
+
+        // Reuse the circuit instance, only updating the witness
+        reusable_circuit.witness = Some(witness);
+
+        current_public_output = reusable_circuit.get_public_outputs();s_from_bin, load_r1cs};
 use circom::circuit::{CircomCircuit, R1CS};
 use ff::Field;
 use nova_snark::{
