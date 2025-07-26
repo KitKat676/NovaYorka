@@ -491,10 +491,16 @@ void free_analyzer_output(char *ptr) { free(ptr); }
 int analyzer_main(char* json_str, char** witness_out_ptr, u64* witness_out_len) {
   // auto t_start = std::chrono::high_resolution_clock::now();
 
-  std::string datfile = "analyzer_cpp/analyzer.dat";
-  Circom_Circuit *circuit = loadCircuit(datfile);
-
-  Circom_CalcWit *ctx = new Circom_CalcWit(circuit);
+  // Use static variables to avoid repeated allocation/deallocation
+  static Circom_Circuit *circuit = nullptr;
+  static Circom_CalcWit *ctx = nullptr;
+  
+  // Initialize circuit and context only once
+  if (circuit == nullptr) {
+    std::string datfile = "analyzer_cpp/analyzer.dat";
+    circuit = loadCircuit(datfile);
+    ctx = new Circom_CalcWit(circuit);
+  }
 
   // printf("About to load Json\n");
   loadJson(ctx, std::string(json_str));
